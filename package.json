@@ -16,7 +16,7 @@
     "lucide-react": "^1.16.0",
     "openai": "^6.38.0",
     "pdf2json": "^4.0.3",
-    "pdfjs-dist": "^5.7.284",
+    "pdfjs-dist": "^3.11.174",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-scripts": "5.0.1",
