@@ -18,7 +18,7 @@ function Section({label, bulletpoints}: {
     let Icon: React.ElementType
     let BulletIcon: React.ElementType
 
-    if (label == "Strengths"){
+    if (label === "Strengths"){
         bgIconColor = 'bg-green-100'
         bgDivColor = 'bg-green-50'
         textColor = 'text-green-500'

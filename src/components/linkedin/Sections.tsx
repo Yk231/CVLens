@@ -1,5 +1,5 @@
 import React from 'react'
-import {UserRound, FileUser, Zap, BriefcaseBusiness, ChartNoAxesColumn} from 'lucide-react'
+import {UserRound, FileUser, Zap, BriefcaseBusiness} from 'lucide-react'
 
 interface Props {
     sectionScores: {
