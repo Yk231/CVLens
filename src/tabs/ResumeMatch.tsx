@@ -27,6 +27,7 @@ export default function ResumeReview() {
       const analysis = await analyzeResume(resume, jobDesc)
       setResult(analysis)
     } catch {
+      console.error('Analysis error:', error)
       setError('Something went wrong. Try again.')
     } finally {
       setLoading(false)

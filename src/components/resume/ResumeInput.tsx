@@ -22,6 +22,8 @@ export default function ResumeInput({ onChange }: Props) {
 
         try {
             const text = await parsePdf(file)
+            console.log('Parsed text length:', text.length)
+            console.log('Sample:', text.substring(0, 100))
             onChange(text)
         } catch (error) {
             alert('Failed to parse PDF.')
