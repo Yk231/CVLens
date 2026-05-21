@@ -19,8 +19,8 @@ export default function ScoreCard({ data }: Props) {
         badgeColor = 'text-green-700 bg-green-100'
         message = 'Good match'
     } else if (score >= 60) {
-        strokeColor = 'stroke-orange-500'
-        badgeColor = 'text-orange 700 bg-orange-100'
+        strokeColor = 'stroke-yellow-500'
+        badgeColor = 'text-yellow 700 bg-yellow-100'
         message = 'Decent match'
     } else {
         strokeColor = 'stroke-red-500'
