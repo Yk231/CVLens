@@ -1,11 +1,12 @@
 import { useRef, useState } from 'react'
 import { FileText } from 'lucide-react'
+import { parsePdf } from '../../lib/parsePdf'
 
 interface Props {
     onChange: (val: string) => void
 }
 
-export default function ResumeInput({ onChange }: Props) {
+export default function LinkedInInput({ onChange }: Props) {
     const [uploading, setUploading] = useState(false)
     const [fileName, setFileName] = useState('')
     const fileRef = useRef<HTMLInputElement>(null)
@@ -17,15 +18,8 @@ export default function ResumeInput({ onChange }: Props) {
         setUploading(true)
         setFileName(file.name)
 
-        const formData = new FormData()
-        formData.append('file', file)
-
         try {
-            const res = await fetch('/api/parse-pdf', {
-                method: 'POST',
-                body: formData
-            })
-            const { text } = await res.json()
+            const text = await parsePdf(file)
             onChange(text)
         } catch {
             alert('Failed to parse PDF.')
@@ -36,7 +30,7 @@ export default function ResumeInput({ onChange }: Props) {
 
     return (
         <div className="flex flex-col gap-2">
-            <label className="font-semibold text-slate-700">Your LinkedIn Profile</label>
+            <label className="font-semibold text-slate-700">Your Resume</label>
 
             <div
                 onClick={() => fileRef.current?.click()}
@@ -67,11 +61,17 @@ export default function ResumeInput({ onChange }: Props) {
                 ) : (
                     <>
                         <FileText className="w-10 h-10 text-slate-300" />
-                        <p className="text-sm font-medium text-slate-600">Click to upload your LinkedIn Profile</p>
-                        <p className="text-xs text-slate-400">PDF files only.</p>
+                        <p className="text-sm font-medium text-slate-600">Click to upload your resume</p>
+                        <p className="text-xs text-slate-400">PDF files only</p>
                     </>
                 )}
             </div>
+
+            {fileName && !uploading && (
+                <p className="text-xs text-green-600 font-medium">
+                    ✓ Resume uploaded successfully
+                </p>
+            )}
         </div>
     )
 }
