@@ -1,13 +1,8 @@
-import * as pdfjsLib from 'pdfjs-dist'
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`
-
 export async function parsePdf(file: File): Promise<string> {
     const pdfjsLib = await import('pdfjs-dist')
     
-    // Pin to specific CDN version instead of dynamic
     pdfjsLib.GlobalWorkerOptions.workerSrc = 
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.7.284/pdf.worker.min.mjs'
 
     const buffer = await file.arrayBuffer()
     const pdf = await pdfjsLib.getDocument({ data: buffer }).promise
