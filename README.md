@@ -29,8 +29,8 @@ An AI-powered web app that analyzes resumes against job descriptions and reviews
 **LinkedIn Review**
 - Upload your LinkedIn profile as a PDF
 - Get an overall profile strength score
-- Section-by-section scoring for Headline, About, Experience, and Skills
-- Strengths, areas to improve, and an AI tip
+- Section-by-section scoring for Headline, About, Experience, Skills, and Education
+- See strengths, areas to improve, and an AI tip
 
 ---
 
