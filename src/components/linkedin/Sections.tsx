@@ -1,5 +1,5 @@
 import React from 'react'
-import {UserRound, FileUser, Zap, BriefcaseBusiness} from 'lucide-react'
+import {UserRound, FileUser, Zap, BriefcaseBusiness, GraduationCap} from 'lucide-react'
 
 interface Props {
     sectionScores: {
@@ -7,12 +7,14 @@ interface Props {
         about: number
         experience: number
         skills: number
+        education: number
     }
     sectionSummaries: {
         headline: string
         about: string
         experience: string
         skills: string
+        education: string
     }
 }
 
@@ -101,6 +103,16 @@ export default function SectionScores({ sectionScores, sectionSummaries }: Props
                 icon={Zap}
                 iconBgColor = 'bg-green-100'
                 iconColor = 'text-green-500'
+            />
+
+            {/*Skills*/}
+            <ScoreRow
+                label="Education"
+                labelSummary={sectionSummaries.education}
+                score={sectionScores.education}
+                icon={GraduationCap}
+                iconBgColor = 'bg-blue-100'
+                iconColor = 'text-blue-500'
             />
         
 

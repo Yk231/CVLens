@@ -30,12 +30,14 @@ module.exports = async function handler(req: any, res: any) {
                         "about": number between 0-100,
                         "experience": number between 0-100,
                         "skills": number between 0-100,
+                        "education": number between 0-100
                       },
                       "sectionSummaries": {
                         "headline": string (1-2 sentences, including constructive criticism if necessary),
                         "about": string,
                         "experience": string,
                         "skills": string,
+                        "education": string
                       },
                       "strengths": array of strings,
                       "improvements": array of strings
