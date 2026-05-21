@@ -45,9 +45,11 @@ export default async function handler(req: any, res: any) {
 
         const result = JSON.parse(response.choices[0].message.content!)
         res.status(200).json(result)
-    } catch (error) {
-        console.error(error)
-        //res.status(500).json({ error: 'Analysis failed' })
-        res.status(500).json({ error: String(error) })
-    }
+    }  catch (error) {
+        console.error('Full error:', error)
+        res.status(500).json({ 
+        error: String(error),
+        message: error instanceof Error ? error.message : 'Unknown error'
+    })
+}
 }

@@ -12,11 +12,9 @@ export async function analyzeResume(
 
 
     const data = await response.json()
-    console.log('API response:', data)
+    console.log('Full API response:', JSON.stringify(data))
 
-    //if (!response.ok) throw new Error('Analysis failed')
-    if (!response.ok) throw new Error(data.error || 'Analysis failed')
-
+    if (!response.ok) throw new Error(data.error || data.message || 'Analysis failed')
 
     return data as AnalysisResult
 
