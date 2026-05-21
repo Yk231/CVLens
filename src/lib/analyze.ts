@@ -1,22 +1,23 @@
-export async function parsePdf(file: File): Promise<string> {
-    const pdfjsLib = await import('pdfjs-dist')
-    
-    // Pin to specific CDN version instead of dynamic
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
+import { AnalysisResult } from '../types/analysis'
 
-    const buffer = await file.arrayBuffer()
-    const pdf = await pdfjsLib.getDocument({ data: buffer }).promise
+export async function analyzeResume(
+    resume: string,
+    jobDesc: string
+): Promise<AnalysisResult> {
+    const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resume, jobDesc })
+    })
 
-    let fullText = ''
-    for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i)
-        const content = await page.getTextContent()
-        const pageText = content.items
-            .map((item: any) => ('str' in item ? item.str : ''))
-            .join(' ')
-        fullText += pageText + '\n'
-    }
 
-    return fullText
+    const data = await response.json()
+    console.log('API response:', data)
+
+    //if (!response.ok) throw new Error('Analysis failed')
+    if (!response.ok) throw new Error(data.error || 'Analysis failed')
+
+
+    return data as AnalysisResult
+
 }
