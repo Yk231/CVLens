@@ -69,7 +69,7 @@ export default function LinkedInInput({ onChange }: Props) {
 
             {fileName && !uploading && (
                 <p className="text-xs text-green-600 font-medium">
-                    ✓ Resume uploaded successfully
+                    ✓ Upload successful
                 </p>
             )}
         </div>
