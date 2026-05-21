@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
 import { FileText } from 'lucide-react'
+import { parsePdf } from '../../lib/parsePdf'
+
 
 interface Props {
     onChange: (val: string) => void
@@ -10,6 +12,7 @@ export default function ResumeInput({ onChange }: Props) {
     const [fileName, setFileName] = useState('')
     const fileRef = useRef<HTMLInputElement>(null)
 
+
     async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
         const file = e.target.files?.[0]
         if (!file) return
@@ -17,18 +20,12 @@ export default function ResumeInput({ onChange }: Props) {
         setUploading(true)
         setFileName(file.name)
 
-        const formData = new FormData()
-        formData.append('file', file)
-
         try {
-            const res = await fetch('/api/parse-pdf', {
-                method: 'POST',
-                body: formData
-            })
-            const { text } = await res.json()
+            const text = await parsePdf(file)
             onChange(text)
-        } catch {
+        } catch (error) {
             alert('Failed to parse PDF.')
+            console.error(error)
         } finally {
             setUploading(false)
         }
