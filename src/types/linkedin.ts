@@ -6,12 +6,14 @@ export interface LinkedinResult {
     about: number
     experience: number
     skills: number
+    education: number
   }
   sectionSummaries: {
     headline: string
     about: string
     experience: string
     skills: string
+    education: string
   }
   strengths: string[]
   improvements: string[]
