@@ -9,10 +9,10 @@ An AI-powered web app that analyzes resumes against job descriptions and reviews
 ## Screenshots
 
 <p align="center">
-  <img src="Screenshots/Resum1.png" width="375">
-  <img src="Screenshots/LinkedIn1.png" width="375">
-  <img src="Screenshots/Resume2.png" width="375">
-  <img src="Screenshots/LinkedIn2.png" width="375">
+  <img src="Screenshots/ResumeA.png" width="375">
+  <img src="Screenshots/LinkedInA.png" width="375">
+  <img src="Screenshots/ResumeB.png" width="375">
+  <img src="Screenshots/LinkedInB.png" width="375">
 </p>
 
 ---
