@@ -71,6 +71,12 @@ export default function ResumeInput({ onChange }: Props) {
                     </>
                 )}
             </div>
+            {fileName && !uploading && (
+                <p className="text-xs text-green-600 font-medium">
+                    ✓ Upload successful
+                </p>
+            )}
         </div>
+        
     )
 }

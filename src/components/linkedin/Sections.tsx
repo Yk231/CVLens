@@ -40,7 +40,7 @@ function ScoreRow({ label, labelSummary, score, icon: Icon, iconBgColor, iconCol
 
         <div className="flex flex-col flex-1">
             <h3 className="text-lg font-semibold text-slate-900">{label}</h3>
-            <p className="text-slate-500">{labelSummary}</p>
+            <p className="text-md text-slate-500">{labelSummary}</p>
         </div>
 
         <div className={`${color} rounded-full p-2 pr-3 pl-3`}>

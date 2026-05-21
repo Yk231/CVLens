@@ -1,46 +1,102 @@
-# Getting Started with Create React App
+# CVLens
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-powered web app that analyzes resumes against job descriptions and reviews LinkedIn profiles — giving job seekers targeted, actionable feedback.
 
-## Available Scripts
+**Live:** [cvlens-three.vercel.app](https://cvlens-three.vercel.app)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Screenshots
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<p align="center">
+  <img src="Screenshots/Resume1.PNG" width="375">
+  <img src="Screenshots/LinkedIn1.PNG" width="375">
+  <img src="Screenshots/Resume2.PNG" width="375">
+  <img src="Screenshots/LinkedIn2.PNG" width="375">
+</p>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Resume Review**
+- Upload a resume as a PDF
+- Paste any job description to compare against
+- Get an overall match score (0–100)
+- See missing keywords, strengths, and weaknesses
+- Receive specific before/after rewrite suggestions for resume bullets
 
-### `npm run build`
+**LinkedIn Review**
+- Upload your LinkedIn profile as a PDF
+- Get an overall profile strength score
+- Section-by-section scoring for Headline, About, Experience, and Skills
+- Strengths, areas to improve, and an AI tip
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tech Stack
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| | |
+|---|---|
+| Frontend | React, TypeScript, Tailwind CSS |
+| AI | OpenAI API (gpt-4o-mini) |
+| PDF Parsing | pdfjs-dist (client-side) |
+| Backend | Vercel Serverless Functions |
+| Deployment | Vercel |
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Running Locally
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Prerequisites:** Node.js, npm, Vercel CLI
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+git clone https://github.com/Yk231/CVLens.git
+cd CVLens
+npm install
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Create a `.env` file:
+```
+OPENAI_API_KEY=your_key_here
+```
 
-## Learn More
+Run locally:
+```bash
+vercel dev
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Open `http://localhost:3000`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+## Project Structure
+
+```
+CVLens/
+├── api/
+│   ├── analyze.ts        ← Resume analysis endpoint
+│   └── linkedin.ts       ← LinkedIn analysis endpoint
+├── src/
+│   ├── components/
+│   │   ├── resume/       ← Resume tab components
+│   │   └── linkedin/     ← LinkedIn tab components
+│   ├── tabs/
+│   │   ├── ResumeReview.tsx    ← Resume tab compilation
+│   │   └── LinkedInReview.tsx  ← LinkedIn tab compilation
+│   ├── lib/
+│   │   ├── analyze.ts    ← Resume API call
+│   │   ├── linkedin.ts   ← LinkedIn API call
+│   │   └── parsePdf.ts   ← Client-side PDF parsing
+│   ├── types/
+│   │   ├── analysis.ts   ← Resume result types
+│   │   └── linkedin.ts   ← LinkedIn result types
+│   └── App.tsx           ← Root component + sidebar
+└── .env                  ← API keys (not committed)
+```
+
+---
+
+## Credits
+
+Developed by [Yotam Krikov](https://github.com/Yk231)
