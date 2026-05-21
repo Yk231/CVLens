@@ -1,8 +1,8 @@
-import OpenAI from 'openai'
+const OpenAI = require('openai')
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).end()
 
   const { profile } = req.body

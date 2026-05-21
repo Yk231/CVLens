@@ -1,9 +1,9 @@
-import OpenAI from 'openai'
+const OpenAI = require('openai')
 
 // Create the OpenAI client using API key
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
-export default async function handler(req: any, res: any) {
+module.exports = async function handler(req: any, res: any) {
     // Only allow POST requests
     if (req.method !== 'POST') return res.status(405).end()
 
@@ -11,7 +11,7 @@ export default async function handler(req: any, res: any) {
     const { resume, jobDesc } = req.body
 
     if (!resume || !jobDesc) {
-    return res.status(400).json({ error: 'Missing resume or job description' })
+        return res.status(400).json({ error: 'Missing resume or job description' })
     }
 
     try {
