@@ -21,19 +21,25 @@ module.exports = async function handler(req: any, res: any) {
             {
                 role: 'system',
                 content: `Act a senior recruiter for the exact company in the given job description. 
-                        Analyze the resume against the job description thoroughly.
-                        Assume there are hundreds of applicants for one position, so don't be afraid to be harsh and realistic.
+                        Given the job description and the resume, give exactly 10 questions you are most likely going to ask.
+                        Also give why each question might be asked, the suggested answers to each question (make them lengthy), and the key points the answer covers
+                        Finally, give a match score between the resume and job description
+                        The first several questions should be general (Ex. tell me about yourself, why are you interested in this role, do you have any questions for us).
                         Note: the resume text may have extra spaces or formatting artifacts from PDF
                         Respond ONLY with valid JSON in exactly this format:
                         {
-                            "matchScore": a score between 0-100,
-                            "missingKeywords": array of strings (top 5 missing keywords),
-                            "strengths": array of strings,
-                            "weaknesses": array of strings (red flags a hiring manager would spot in under 15 seconds),
-                            "rewriteSuggestions": array of { "original": string, "improved": string },
-                            "summary": string (2-3 sentences)
-                            "tip": one general resume tip
-                        }`
+                          "score": a number 0-100, 
+                          "QnA"[
+                            {
+                            "question": string
+                            "why": string
+                            "answer": array of strings (store each paragraph as its own string, if necessary)
+                            "keyPoints": array of strings 
+                            }
+                          ]
+                        }
+                        QnA must contain exactly 10 items`
+                        
             },
             {
                 role: 'user',

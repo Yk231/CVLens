@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import JobDescInput from '../components/resume/JobDescInput'
-import ResumeInput from '../components/resume/ResumeInput'
+import JobDescInput from '../components/JobDescInput'
+import ResumeInput from '../components/ResumeInput'
 import ScoreCard from '../components/resume/ScoreCard'
 import StrengthsList from '../components/resume/StrengthsList'
 import RewriteSuggestions from '../components/resume/RewriteSuggestions'

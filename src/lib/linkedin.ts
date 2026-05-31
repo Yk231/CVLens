@@ -1,6 +1,8 @@
 import { LinkedinResult } from '../types/linkedin'
 
-export async function analyzeLinkedin(profile: string): Promise<LinkedinResult> {
+export async function analyzeLinkedin(
+  profile: string
+): Promise<LinkedinResult> {
   const response = await fetch('/api/linkedin', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

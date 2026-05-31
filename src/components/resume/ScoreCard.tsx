@@ -26,7 +26,6 @@ export default function ScoreCard({ data }: Props) {
         strokeColor = 'stroke-red-500'
         badgeColor = 'text-red-700 bg-red-100'
         message = 'Needs improvement'
-        
     }
 
     return (
