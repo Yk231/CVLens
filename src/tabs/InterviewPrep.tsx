@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Sparkles, Copy, ChevronRight, RotateCcw, ArrowRight, Info, Star, ArrowLeft, BadgeCheck, Badge } from 'lucide-react'
-import { parsePdf } from '../lib/parsePdf'
+import {Copy, ChevronRight, ArrowRight, Info, Star, ArrowLeft, BadgeCheck } from 'lucide-react'
 import JobDescInput from '../components/JobDescInput'
 import ResumeInput from '../components/ResumeInput'
 import Stats from '../components/interview/Stats'

@@ -1,7 +1,5 @@
-import { supabase } from '../lib/supabase'
-import { Session } from '@supabase/supabase-js'
-import React, { useState } from 'react'
-import { User, Mail, Shield, Link, Camera, Check, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+import { Mail, Shield, Check } from 'lucide-react'
 
 interface Props {
   firstName?: string
