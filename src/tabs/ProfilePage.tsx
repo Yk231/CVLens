@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Mail, Shield, Check, FileUser } from 'lucide-react'
+import { Mail, Check, FileUser } from 'lucide-react'
 
 interface Props {
   firstName?: string
