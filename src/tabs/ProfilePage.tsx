@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Mail, Check, FileUser } from 'lucide-react'
+import { Mail, User, Check } from 'lucide-react'
 
 interface Props {
   firstName?: string
@@ -32,7 +32,24 @@ export default function ProfilePage({ firstName = '', lastName = '', email, onSi
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
           <label className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Name</label>
 
-          {editingName ? (
+          
+      </div>
+
+      {/* Account Details Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+
+        <div className="px-6 py-4 border-b border-slate-100">
+          <h2 className="font-semibold text-slate-900">Account</h2>
+        </div>
+
+        {/* Name */}
+        <div className="flex flex-row items-center gap-4 px-6 py-4 border-b border-slate-100">
+          <div className="bg-slate-100 rounded-full p-2">
+            <User className="w-4 h-4 text-slate-500" />
+          </div>
+          <div className="flex flex-col gap-0.5 flex-1">
+            <span className="text-xs text-slate-400 font-medium">Name</span>
+            {editingName ? (
               <div className="flex flex-row gap-2 mt-2">
                   <input
                       value={firstNameValue}
@@ -78,23 +95,6 @@ export default function ProfilePage({ firstName = '', lastName = '', email, onSi
                   )}
               </div>
           )}
-      </div>
-
-      {/* Account Details Card */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-
-        <div className="px-6 py-4 border-b border-slate-100">
-          <h2 className="font-semibold text-slate-900">Account</h2>
-        </div>
-
-        {/* Name */}
-        <div className="flex flex-row items-center gap-4 px-6 py-4 border-b border-slate-100">
-          <div className="bg-slate-100 rounded-full p-2">
-            <FileUser className="w-4 h-4 text-slate-500" />
-          </div>
-          <div className="flex flex-col gap-0.5 flex-1">
-            <span className="text-xs text-slate-400 font-medium">Name</span>
-            <span className="text-sm text-slate-900">{firstNameValue} {lastNameValue}</span>
           </div>
         </div>
 
