@@ -166,8 +166,9 @@ export default function App() {
               firstName={session?.user.user_metadata.full_name?.split(' ')[0]}
               lastName={session?.user.user_metadata.full_name?.split(' ').slice(1).join(' ')}
               email={session?.user.email}
+              userId={session?.user.id}
               onSignOut={signOut}
-            />
+           />
           )}
           {activeTab === 'interview' && <InterviewPrep />}
         </main>

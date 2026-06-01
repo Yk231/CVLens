@@ -1,15 +1,11 @@
-export {}
-
 const OpenAI = require('openai')
 
-// Create the OpenAI client using API key
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 
 module.exports = async function handler(req: any, res: any) {
-    // Only allow POST requests
+    
     if (req.method !== 'POST') return res.status(405).end()
 
-    // Separate the request into resume and job description
     const { resume, jobDesc } = req.body
 
     if (!resume || !jobDesc) {
