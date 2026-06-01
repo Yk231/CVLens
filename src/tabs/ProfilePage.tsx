@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Mail, User, Check, AlertTriangle } from 'lucide-react'
+import { Mail, User, Check } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import ConfirmationDialogue from '../components/auth/ConfirmationDialogue'
 
