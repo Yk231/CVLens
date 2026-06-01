@@ -43,7 +43,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="h-screen bg-gray-50 flex flex-col">
 
       {/* Auth overlay — blurs the app behind it when not signed in */}
       {!session && !isGuest && (
@@ -56,7 +56,7 @@ export default function App() {
         <p className="text-indigo-700 text-sm">AI-powered job application tools</p>
       </header>
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden min-h-0">
 
         {/* Sidebar */}
         <aside className="w-80 bg-white border-r border-gray-200 p-4 flex flex-col overflow-y-auto flex-shrink-0">
@@ -158,7 +158,7 @@ export default function App() {
         </aside>
 
         {/* Content */}
-        <main className="flex-1 px-8 py-10 overflow-y-auto">
+        <main className="flex-1 px-8 py-10 overflow-y-auto min-h-0">
           {activeTab === 'resume' && <ResumeReview />}
           {activeTab === 'linkedin' && <LinkedInReview />}
           {activeTab === 'profile' && (
