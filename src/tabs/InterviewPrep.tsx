@@ -63,7 +63,7 @@ export default function InterviewPrep() {
         const question = result.QnA[selectedQuestion].question
         navigator.clipboard.writeText(question)
         setCopiedQuestion(true)
-        setTimeout(() => setCopiedAnswer(false), 2000)
+        setTimeout(() => setCopiedQuestion(false), 2000)
     }
 
     const currentQ = result?.QnA[selectedQuestion]
@@ -182,7 +182,7 @@ export default function InterviewPrep() {
                                 </div>
                                 
                                 <div className="flex flex-row items-center justify-between">
-                                    <h3 className="text-xl font-bold text-slate-900">{currentQ.question}</h3>
+                                    <h3 className="max-w-2xl text-xl font-bold text-slate-900">{currentQ.question}</h3>
                                     <button
                                         onClick={copyQuestion}
                                         className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 flex-shrink-0"

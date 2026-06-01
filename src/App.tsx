@@ -31,6 +31,7 @@ export default function App() {
     await supabase.auth.signOut()
     setIsGuest(false)
     setSession(null)
+    setActiveTab('resume')
   }
 
   if (loading) {
@@ -50,15 +51,15 @@ export default function App() {
       )}
 
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white px-8 py-5">
+      <header className="border-b border-gray-200 bg-white px-8 py-5 flex-shrink-0">
         <h1 className="text-6xl font-bold text-indigo-700 tracking-tight">CVLens</h1>
         <p className="text-indigo-700 text-sm">AI-powered job application tools</p>
       </header>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
 
         {/* Sidebar */}
-        <aside className="w-80 bg-white border-r border-gray-200 p-4 flex flex-col">
+        <aside className="w-80 bg-white border-r border-gray-200 p-4 flex flex-col overflow-y-auto flex-shrink-0">
 
           {/* Nav */}
           <div className="flex flex-col gap-2">

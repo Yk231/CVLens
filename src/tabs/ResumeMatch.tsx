@@ -35,7 +35,7 @@ export default function ResumeReview() {
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
 
       <div className="flex flex-row items-center justify-between">
 
