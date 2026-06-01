@@ -1,3 +1,5 @@
+export {}
+
 const OpenAI = require('openai')
 
 // Create the OpenAI client using API key
