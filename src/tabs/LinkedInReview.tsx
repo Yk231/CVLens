@@ -13,6 +13,7 @@ export default function LinkedInReview() {
     const [result, setResult] = useState<LinkedinResult | null>(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
+    const [sessionKey, setSessionKey] = useState(0)
 
     async function handleAnalyze() {
         if (!profile || !profile.trim()) {
@@ -50,6 +51,7 @@ export default function LinkedInReview() {
                                 setResult(null)
                                 setProfile('')
                                 setError('')
+                                setSessionKey(k => k + 1) 
                             }}
                             className="text-white bg-indigo-500 
                                     px-4 py-3 text-white font-semibold rounded-xl transition-colors"
@@ -64,7 +66,7 @@ export default function LinkedInReview() {
 
             
             {/* Input */}
-            <LinkedinInput onChange={setProfile} />
+            <LinkedinInput key={sessionKey} onChange={setProfile} />
             
             {/* Error */}
             {error && (

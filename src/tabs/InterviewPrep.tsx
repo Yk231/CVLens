@@ -25,6 +25,7 @@ export default function InterviewPrep() {
     const [selectedQuestion, setSelectedQuestion] = useState(0)
     const [copiedAnswer, setCopiedAnswer] = useState(false)
     const [copiedQustion, setCopiedQuestion] = useState(false)
+    const [sessionKey, setSessionKey] = useState(0)
 
     async function handleAnalyze() {
         if (!resume.trim() || !jobDesc.trim()) {
@@ -79,18 +80,24 @@ export default function InterviewPrep() {
                 </div>
                 {result && (
                     <button
-                        onClick={() => { setResult(null); setResume(''); setJobDesc(''); setError('') }}
+                        onClick={() => { 
+                            setResult(null)
+                            setResume('')
+                            setJobDesc('')
+                            setError('')
+                            setSessionKey(k => k + 1)
+                        }}
                         className="text-white bg-indigo-500 
                                     px-4 py-3 text-white font-semibold rounded-xl transition-colors"
                         >
-                        New Session
+                        New Analysis
                     </button>
                 )}
             </div>
 
             {/* Inputs */}
             <div className="grid grid-cols-2 gap-6">
-                <ResumeInput onChange={setResume} />
+                <ResumeInput key={sessionKey} onChange={setResume} />
                 <JobDescInput value={jobDesc} onChange={setJobDesc} />
             </div>
 

@@ -14,6 +14,7 @@ export default function ResumeReview() {
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [sessionKey, setSessionKey] = useState(0)
 
   async function handleAnalyze() {
     if (!resume || !resume.trim() || !jobDesc.trim()) {
@@ -53,6 +54,7 @@ export default function ResumeReview() {
                   setResume('')
                   setJobDesc('')
                   setError('')
+                  setSessionKey(k => k + 1)  
               }}
               className="text-white bg-indigo-500 
                       px-4 py-3 text-white font-semibold rounded-xl transition-colors"
@@ -65,7 +67,7 @@ export default function ResumeReview() {
       </div>
 
       <div className="grid grid-cols-2 gap-6 mb-6">
-        <ResumeInput onChange={setResume} />
+        <ResumeInput  key={sessionKey} onChange={setResume} />
         <JobDescInput value={jobDesc} onChange={setJobDesc} />
       </div>
 

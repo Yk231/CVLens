@@ -58,7 +58,9 @@ export default function ProfilePage({ firstName = '', lastName = '', email, user
         last_name: lastNameValue.trim(),
         updated_at: new Date().toISOString()
       })
-
+      console.log('Save error:', error)
+      console.log('userId:', userId)
+      
     setSaving(false)
     if (!error) {
       setEditingName(false)
