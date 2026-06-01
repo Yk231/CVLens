@@ -1,4 +1,3 @@
-import React from 'react'
 import { LinkedinResult } from '../../types/linkedin'
 
 interface Props {
