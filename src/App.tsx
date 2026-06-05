@@ -5,13 +5,15 @@ import Auth from './components/auth/Auth'
 import ResumeReview from './tabs/ResumeMatch'
 import LinkedInReview from './tabs/LinkedInReview'
 import ProfilePage from './tabs/ProfilePage'
-import { GitCompareArrowsIcon, PanelsTopLeft, ChevronRight, CircleUser, MessagesSquare } from 'lucide-react'
+import { GitCompareArrowsIcon, PanelsTopLeft, ChevronRight, CircleUser, MessagesSquare, TextInitial } from 'lucide-react'
 import InterviewPrep from './tabs/InterviewPrep'
+import CoverLetter from './tabs/CoverLetter'
+
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null)
   const [isGuest, setIsGuest] = useState(false)
-  const [activeTab, setActiveTab] = useState<'resume' | 'linkedin' | 'profile' | 'interview'>('resume')
+  const [activeTab, setActiveTab] = useState<'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter'>('resume')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -99,6 +101,18 @@ export default function App() {
               <MessagesSquare className="w-8 h-8" />
               Interview Prep
             </button>
+
+            <button
+              onClick={() => setActiveTab('coverLetter')}
+              className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
+                activeTab === 'coverLetter'
+                  ? 'bg-blue-50 text-indigo-600'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              <TextInitial className="w-8 h-8" />
+              Cover Letter
+            </button>
           </div>
 
           {/* Profile — pinned to bottom */}
@@ -171,6 +185,8 @@ export default function App() {
            />
           )}
           {activeTab === 'interview' && <InterviewPrep />}
+          {activeTab === 'coverLetter' && <CoverLetter />}
+
         </main>
 
       </div>

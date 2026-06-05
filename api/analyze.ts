@@ -24,13 +24,13 @@ module.exports = async function handler(req: any, res: any) {
                         Note: the resume text may have extra spaces or formatting artifacts from PDF
                         Respond ONLY with valid JSON in exactly this format:
                         {
-                            "matchScore": a score between 0-100,
+                            "matchScore": number between 0-100,
                             "missingKeywords": array of strings (top 5 missing keywords),
                             "strengths": array of strings,
                             "weaknesses": array of strings (red flags a hiring manager would spot in under 15 seconds),
                             "rewriteSuggestions": array of { "original": string, "improved": string },
-                            "summary": string (2-3 sentences)
-                            "tip": one general resume tip
+                            "summary": string (2-3 sentences),
+                            "tip": string (one general resume tip)
                         }`
             },
             {

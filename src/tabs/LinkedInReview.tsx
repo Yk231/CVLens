@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import LinkedinInput from '../components/linkedin/LinkedinInput'
-import LoadingState from '../components/linkedin/LoadingState'
 import ScoreCard from '../components/linkedin/ScoreCard'
 import Sections from '../components/linkedin/Sections'
 import StrengthsList from '../components/linkedin/StrengthsList'
 import { analyzeLinkedin } from '../lib/linkedin'
 import { LinkedinResult } from '../types/linkedin'
 import ProfileOverview from '../components/linkedin/ProfileOverview'
+import AnalyzeButton from '../components/AnalyzeButton'
+import Header from '../components/Header'
+
+
 
 export default function LinkedInReview() {
     const [profile, setProfile] = useState('')
@@ -38,11 +41,11 @@ export default function LinkedInReview() {
 
             <div className="flex flex-row items-center justify-between">
 
-           
-                <div className="flex flex-col gap-1">
-                    <h2 className="text-4xl font-bold text-slate-900">LinkedIn Review</h2>
-                    <p className="text-xl text-slate-500">Get AI-powered feedback to improve your LinkedIn profile and make a stronger impression.</p>
-                </div>
+                <Header 
+                    title="LinkedIn Review" 
+                    subtitle="Get AI-powered feedback to improve your LinkedIn profile and make a stronger impression."
+                />
+                
 
                 <div className="justify-end">
                     {result && (
@@ -69,22 +72,18 @@ export default function LinkedInReview() {
             <LinkedinInput key={sessionKey} onChange={setProfile} />
             
             {/* Error */}
-            {error && (
-                <p className="text-red-500 text-sm">{error}</p>
-            )}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
-            {/* Analyze button */}
-            <button
+
+            {/* Analyze Button */}
+            <AnalyzeButton
+                idleMessage = "Analyze profile "
+                loadingMessage = "Analyzing..."
+                loading = {loading}
+                requiredFields={[profile]}
                 onClick={handleAnalyze}
-                disabled={loading}
-                className="w-full bg-indigo-500 disabled:opacity-50
-                           text-white font-semibold py-3 rounded-xl transition-colors"
-            >
-                {loading ? 'Analyzing...' : 'Analyze Profile'}
-            </button>
+            />
 
-            {/* Loading */}
-            {loading && <LoadingState />}
 
             {/* Results */}
             {result && !loading && (

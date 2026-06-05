@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import {Copy, ChevronRight, ArrowRight, Info, Star, ArrowLeft, BadgeCheck } from 'lucide-react'
-import JobDescInput from '../components/JobDescInput'
-import ResumeInput from '../components/ResumeInput'
+import { JobDescInput1 }  from '../components/JobDescInput'
+import { ResumeInput1 }  from '../components/ResumeInput'
 import Stats from '../components/interview/Stats'
+import AnalyzeButton from '../components/AnalyzeButton'
+import Header from '../components/Header'
+
+
 
 interface QnA {
     question: string
@@ -74,10 +78,12 @@ export default function InterviewPrep() {
 
             {/* Header */}
             <div className="flex flex-row items-start justify-between">
-                <div className="flex flex-col gap-1">
-                    <h2 className="text-4xl font-bold text-slate-900">Interview Prep</h2>
-                    <p className="text-xl text-slate-500">Get ready for your next interview with AI-generated questions and suggested answers tailored to the job.</p>
-                </div>
+            
+                <Header 
+                    title="Interview Prep" 
+                    subtitle="Get ready for your next interview with AI-generated questions and suggested answers tailored to the job."
+                />
+                
                 {result && (
                     <button
                         onClick={() => { 
@@ -97,30 +103,20 @@ export default function InterviewPrep() {
 
             {/* Inputs */}
             <div className="grid grid-cols-2 gap-6">
-                <ResumeInput key={sessionKey} onChange={setResume} />
-                <JobDescInput value={jobDesc} onChange={setJobDesc} />
+                <ResumeInput1 key={sessionKey} onChange={setResume} />
+                <JobDescInput1 value={jobDesc} onChange={setJobDesc} />
             </div>
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
-
             {/* Analyze Button */}
-            {!result && (
-                <button
-                    onClick={handleAnalyze}
-                    disabled={loading}
-                    className="w-full bg-indigo-500 hover:bg-indigo-600 disabled:opacity-50
-                               text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2"
-                >
-                    {loading ? (
-                        <>
-                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            Generating questions...
-                        </>
-                    ) : (
-                        'Generate Interview Questions'
-                    )}
-                </button>
-            )}
+            <AnalyzeButton
+                idleMessage = "Generate Interview Questions"
+                loadingMessage = "Generating..."
+                loading = {loading}
+                requiredFields={[resume, jobDesc]}
+                onClick={handleAnalyze}
+            />
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             {/* Results */}
             {result && (

@@ -3,6 +3,8 @@ interface Props {
 }
 
 export default function KeywordBadges({ keywords }: Props) {
+    if (!keywords?.length) return null
+    
     return (
     <div>
         <h2 className="text-xl font-bold text-gray-800 mb-3">Missing Keywords</h2>

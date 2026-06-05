@@ -75,7 +75,7 @@ export default function ScoreCard({ data }: Props) {
         </div>
 
         {/*Missing Keywords*/}
-        <KeywordBadges keywords={data.missingKeywords} />
+        <KeywordBadges keywords={data.missingKeywords ?? []} />
 
 
 

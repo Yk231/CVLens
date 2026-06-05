@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import JobDescInput from '../components/JobDescInput'
-import ResumeInput from '../components/ResumeInput'
+import { JobDescInput1 }  from '../components/JobDescInput'
+import { ResumeInput1 }  from '../components/ResumeInput'
 import ScoreCard from '../components/resume/ScoreCard'
 import StrengthsList from '../components/resume/StrengthsList'
 import RewriteSuggestions from '../components/resume/RewriteSuggestions'
-import LoadingState from '../components/resume/LoadingState'
 import { analyzeResume } from '../lib/analyze'
 import { AnalysisResult } from '../types/analysis'
+import AnalyzeButton from '../components/AnalyzeButton'
+import Header from '../components/Header'
+
+
 
 export default function ResumeReview() {
   const [resume, setResume] = useState('')
@@ -40,11 +43,10 @@ export default function ResumeReview() {
 
       <div className="flex flex-row items-center justify-between">
 
-           
-        <div className="flex flex-col gap-1">
-            <h2 className="text-4xl font-bold text-slate-900">Job Match Analysis</h2>
-            <p className="text-xl text-slate-500">See how well your resume matches the job description and get Al-powered insights.</p>
-        </div>
+        <Header 
+          title="Job Match Analysis" 
+          subtitle="See how well your resume matches the job description and get Al-powered insights."
+        />
 
         <div className="justify-end">
           {result && (
@@ -67,22 +69,21 @@ export default function ResumeReview() {
       </div>
 
       <div className="grid grid-cols-2 gap-6 mb-6">
-        <ResumeInput  key={sessionKey} onChange={setResume} />
-        <JobDescInput value={jobDesc} onChange={setJobDesc} />
+        <ResumeInput1  key={sessionKey} onChange={setResume} />
+        <JobDescInput1 value={jobDesc} onChange={setJobDesc} />
       </div>
 
+
+      {/* Analyze Button */}
+      <AnalyzeButton
+          idleMessage = "Analyze Match"
+          loadingMessage = "Analyzing..."
+          loading = {loading}
+          requiredFields={[resume, jobDesc]}
+          onClick={handleAnalyze}
+      />
+
       {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-
-      <button
-        onClick={handleAnalyze}
-        disabled={loading}
-        className="w-full bg-indigo-500 disabled:opacity-50
-                   text-white font-semibold py-3 rounded-xl transition-colors"
-      >
-        {loading ? 'Analyzing...' : 'Analyze Resume'}
-      </button>
-
-      {loading && <LoadingState />}
 
       {result && !loading && (
         <div className="flex flex-col gap-8">
