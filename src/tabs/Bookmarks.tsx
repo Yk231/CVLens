@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { Trash2, Eye, MessagesSquare, Bookmark, FileText, FileChartLine, UserStar } from 'lucide-react'
+import { Trash2, Eye, MessagesSquare, Bookmark, FileText, FileChartLine, UserStar, RefreshCw } from 'lucide-react'
 import Header from '../components/Header'
 import InputSpan from '../components/bookmarks/InputSpan'
+import { useAppContext } from '../context/AppContext'
 
 
 
@@ -91,6 +92,7 @@ function formatDate(dateStr: string) {
 
 export default function BookmarksTab() {
     const { bookmarks, loading, typeFilter, setTypeFilter, deleteBookmark } = useBookmarks()
+    const { setActiveTab, setBookmarkData } = useAppContext()
 
     const FILTERS = [
         { label: 'All', value: 'all' },
@@ -133,7 +135,7 @@ export default function BookmarksTab() {
                             <th className="text-left px-6 py-3 font-medium">Role / Company</th>
                             <th className="text-left px-6 py-3 font-medium w-100">Inputs</th>
                             <th className="text-left px-6 py-3 font-medium w-46">Date saved</th>
-                            <th className="text-left px-6 py-3 font-medium w-46">Actions</th>
+                            <th className="text-center px-6 py-3 font-medium w-46">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -181,8 +183,13 @@ export default function BookmarksTab() {
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex flex-row gap-2">
-                                            <button
-                                                className="p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+                                            <button onClick={() => {
+                                                setBookmarkData({ inputs: bookmark.inputs, result: bookmark.result })
+                                                setActiveTab(bookmark.type === 'resume_match' ? 'resume' : 
+                                                            bookmark.type === 'cover_letter' ? 'coverLetter' :
+                                                            bookmark.type === 'interview' ? 'interview' : 'linkedin')
+                                            }}
+                                                className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                                                 aria-label="View"
                                             >
                                                 <Eye className="w-6 h-6" />

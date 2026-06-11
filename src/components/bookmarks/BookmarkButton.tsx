@@ -64,10 +64,12 @@ export default function BookmarkButton({ type, inputs, result }: Props) {
             <div className="flex flex-row rounded-xl border border-slate-200 bg-gray-100 p-6 gap-10">
                 
                 
+                
                 <div className="flex flex-col">
                     <span className="font-medium text-lg text-slate-900">Like what you see?</span>
                     <span className="text-md text-slate-500">Save this analysis and revisit it later</span>
                 </div>
+            
                 
 
                 <button

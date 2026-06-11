@@ -18,6 +18,8 @@ export default function App() {
   const [isGuest, setIsGuest] = useState(false)
   const [activeTab, setActiveTab] = useState<'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter' | 'bookmarks'>('resume')
   const [loading, setLoading] = useState(true)
+  const [bookmarkData, setBookmarkData] = useState<any>(null)
+
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -39,6 +41,11 @@ export default function App() {
     setActiveTab('resume')
   }
 
+  function navigateTo(tab: typeof activeTab) {
+    setActiveTab(tab)
+    setBookmarkData(null)
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -48,7 +55,7 @@ export default function App() {
   }
 
   return (
-    <AppContext.Provider value={{ session, isGuest, setIsGuest, activeTab, setActiveTab }}>
+    <AppContext.Provider value={{ session, isGuest, setIsGuest, activeTab, setActiveTab, bookmarkData, setBookmarkData }}>
       <div className="h-screen bg-gray-50 flex flex-col">
 
       {/* Auth overlay — blurs the app behind it when not signed in */}
@@ -70,7 +77,7 @@ export default function App() {
           {/* Nav */}
           <div className="flex flex-col gap-2">
             <button
-              onClick={() => setActiveTab('resume')}
+              onClick={() => navigateTo('resume')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
                 activeTab === 'resume'
                   ? 'bg-blue-50 text-indigo-500'
@@ -82,7 +89,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setActiveTab('coverLetter')}
+              onClick={() => navigateTo('coverLetter')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
                 activeTab === 'coverLetter'
                   ? 'bg-blue-50 text-indigo-600'
@@ -94,7 +101,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setActiveTab('interview')}
+              onClick={() => navigateTo('interview')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
                 activeTab === 'interview'
                   ? 'bg-blue-50 text-indigo-600'
@@ -106,7 +113,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setActiveTab('linkedin')}
+              onClick={() => navigateTo('linkedin')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
                 activeTab === 'linkedin'
                   ? 'bg-blue-50 text-indigo-600'
@@ -119,7 +126,7 @@ export default function App() {
 
             <hr></hr>
             <button
-              onClick={() => setActiveTab('bookmarks')}
+              onClick={() => navigateTo('bookmarks')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
                 activeTab === 'bookmarks'
                   ? 'bg-blue-50 text-indigo-600'
@@ -137,7 +144,7 @@ export default function App() {
 
             {session ? (
               <button
-                onClick={() => setActiveTab('profile')}
+                onClick={() => navigateTo('profile')}
                 className={`w-full flex flex-row items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                   activeTab === 'profile'
                     ? 'bg-blue-50'

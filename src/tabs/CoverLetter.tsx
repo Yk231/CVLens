@@ -6,16 +6,18 @@ import Header from '../components/Header'
 import AnalyzeButton from '../components/AnalyzeButton'
 import { CoverLetter } from '../types/coverLetter'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
-
+import { useAppContext } from '../context/AppContext'
 
 export default function CoverLetterGenerator() {
+    const { bookmarkData } = useAppContext()
+    const [result, setResult] = useState(bookmarkData?.result ?? null)
+    const [resume, setResume] = useState(bookmarkData?.inputs.resume ?? '')
+    const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs.jobDesc ?? '')
+
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [resultKey, setResultKey] = useState(0)
-    const [result, setResult] = useState<CoverLetter | null>(null)
-
-    const [resume, setResume] = useState('')
-    const [jobDesc, setJobDesc] = useState('')
+    
     const [resumeName, setResumeName] = useState('')
 
 

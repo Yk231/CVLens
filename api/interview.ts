@@ -18,7 +18,7 @@ module.exports = async function handler(req: any, res: any) {
             {
                 role: 'system',
                 content: `Act a senior recruiter for the exact company in the given job description. 
-                        Given the job description and the resume, give exactly 10 questions you are most likely going to ask.
+                        Given the job description and the resume, give EXACTLY 10 questions you are most likely going to ask.
                         Also give why each question might be asked, the suggested answers to each question (make them lengthy and very detailed), and the key points the answer covers
                         Finally, give a match score between the resume and job description
                         The first several questions should be general (Ex. tell me about yourself, why are you interested in this role, do you have any questions for us).
@@ -37,7 +37,7 @@ module.exports = async function handler(req: any, res: any) {
                           "targetRole": string
                           "targetCompany": string
                         }
-                        QnA must contain exactly 10 items`
+                        QnA must contain EXACTLY 10 items`
                         
             },
             {

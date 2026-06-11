@@ -8,14 +8,16 @@ import { AnalysisResult } from '../types/analysis'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
-
+import { useAppContext } from '../context/AppContext'
 
 
 export default function ResumeReview() {
-  const [resume, setResume] = useState('')
+  const { bookmarkData } = useAppContext()
+  const [result, setResult] = useState(bookmarkData?.result ?? null)
+  const [resume, setResume] = useState(bookmarkData?.inputs.resume ?? '')
+  const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs.jobDesc ?? '')
+  
   const [resumeName, setResumeName] = useState('')
-  const [jobDesc, setJobDesc] = useState('')
-  const [result, setResult] = useState<AnalysisResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [sessionKey, setSessionKey] = useState(0)
@@ -50,7 +52,7 @@ export default function ResumeReview() {
       <div className="flex flex-row items-center justify-between">
 
         <Header 
-          title="Job Match Analysis" 
+          title="Resume Match Analysis" 
           subtitle="See how well your resume matches the job description and get Al-powered insights."
         />
 

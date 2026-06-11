@@ -7,6 +7,8 @@ interface AppContextType {
     setIsGuest: (val: boolean) => void
     activeTab: string
     setActiveTab: (val: 'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter' | 'bookmarks') => void
+    bookmarkData: any
+    setBookmarkData: (val: any) => void
 }
 
 export const AppContext = createContext<AppContextType>({
@@ -14,7 +16,9 @@ export const AppContext = createContext<AppContextType>({
     isGuest: false,
     setIsGuest: () => {},
     activeTab: 'resume',
-    setActiveTab: () => {}
+    setActiveTab: () => {},
+    bookmarkData: null,
+    setBookmarkData: () => {}
 })
 
 export function useAppContext() {

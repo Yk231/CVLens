@@ -9,13 +9,14 @@ import ProfileOverview from '../components/linkedin/ProfileOverview'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
-
+import { useAppContext } from '../context/AppContext'
 
 
 export default function LinkedInReview() {
-    const [profile, setProfile] = useState('')
+    const { bookmarkData } = useAppContext()
+    const [profile, setProfile] = useState(bookmarkData?.inputs.profile ?? '')
+    const [result, setResult] = useState(bookmarkData?.result ?? null)
     const [fileName, setFileName] = useState('')
-    const [result, setResult] = useState<LinkedinResult | null>(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [sessionKey, setSessionKey] = useState(0)

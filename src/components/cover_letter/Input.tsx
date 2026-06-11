@@ -50,7 +50,7 @@ export default function Input({
             setResumeMeta({ name: file.name, sizeKb: Math.round(file.size / 1024) })
             setResumeName(file.name)
             const text = await parsePdf(file)
-            setResume(text)  // ← passes text up to CoverLetterGenerator
+            setResume(text) 
         }
         input.click()
     }
@@ -58,7 +58,7 @@ export default function Input({
     function handleJobDescChange(text: string) {
         const words = text.trim().split(/\s+/).filter(Boolean)
         setJobDescMeta({ title: "Job Description", wordCount: words.length })
-        setJobDesc(text)  // ← passes text up to CoverLetterGenerator
+        setJobDesc(text)
     }
 
     return (

@@ -6,7 +6,7 @@ import Stats from '../components/interview/Stats'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
-
+import { useAppContext } from '../context/AppContext'
 
 
 interface QnA {
@@ -24,10 +24,12 @@ interface InterviewResult {
 }
 
 export default function InterviewPrep() {
-    const [resume, setResume] = useState('')
+    const { bookmarkData } = useAppContext()
+    const [result, setResult] = useState<InterviewResult | null>(bookmarkData?.result ?? null)
+    const [resume, setResume] = useState(bookmarkData?.inputs?.resume ?? '')
+    const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs?.jobDesc ?? '')
+
     const [resumeName, setResumeName] = useState('')
-    const [jobDesc, setJobDesc] = useState('')
-    const [result, setResult] = useState<InterviewResult | null>(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [selectedQuestion, setSelectedQuestion] = useState(0)
@@ -39,7 +41,7 @@ export default function InterviewPrep() {
         if (!resume.trim() || !jobDesc.trim()) {
             setError('Please provide both your resume and a job description')
             return
-        }
+        }   
         setError('')
         setLoading(true)
         setResult(null)
@@ -161,22 +163,23 @@ export default function InterviewPrep() {
                                 <div className="flex flex-row items-center justify-between">
                                     <span className="text-sm text-slate-500 font-medium">Question {selectedQuestion + 1} of {result.QnA.length}</span>
                                     <div className="flex flex-row items-center gap-5">
-                                        {selectedQuestion > 0 && (
-                                            <button
-                                                onClick={() => setSelectedQuestion(i => i - 1)}
-                                                className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 font-medium"
-                                            >
-                                                <ArrowLeft className="w-3 h-3" /> Previous Question
-                                            </button>
-                                        )}
-                                        {selectedQuestion < result.QnA.length - 1 && (
-                                            <button
-                                                onClick={() => setSelectedQuestion(i => i + 1)}
-                                                className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 font-medium"
-                                            >
-                                                Next Question <ArrowRight className="w-3 h-3" />
-                                            </button>
-                                        )}
+
+                                        <button
+                                            onClick={() => setSelectedQuestion(i => i - 1)}
+                                            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                                            disabled={selectedQuestion == 0}
+                                        >
+                                            <ArrowLeft className="w-3 h-3" /> Previous Question
+                                        </button>
+
+                                        <button
+                                            onClick={() => setSelectedQuestion(i => i + 1)}
+                                            className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                                            disabled={selectedQuestion == result.QnA.length -1}
+                                        >
+                                            Next Question <ArrowRight className="w-3 h-3" />
+                                        </button>
+                                        
                                     </div>
                                 </div>
                                 
@@ -184,7 +187,7 @@ export default function InterviewPrep() {
                                     <h3 className="max-w-2xl text-xl font-bold text-slate-900">{currentQ.question}</h3>
                                     <button
                                         onClick={copyQuestion}
-                                        className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 flex-shrink-0"
+                                        className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700 flex-shrink-0"
                                     >
                                         <Copy className="w-4 h-4" />
                                         {copiedQustion ? 'Copied!' : 'Copy Question'}
@@ -210,7 +213,7 @@ export default function InterviewPrep() {
                                         </div>
                                         <button
                                             onClick={copyAnswer}
-                                            className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600"
+                                            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-700"
                                         >
                                             <Copy className="w-4 h-4" />
                                             {copiedAnswer ? 'Copied!' : 'Copy Answer'}
