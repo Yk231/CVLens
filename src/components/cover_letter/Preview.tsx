@@ -1,4 +1,4 @@
-import { FileText, Pencil, Heart, BookMarked, Lightbulb, BriefcaseBusiness } from 'lucide-react'
+import { FileText, Pencil, Lightbulb } from 'lucide-react'
 
 const features = [
     {

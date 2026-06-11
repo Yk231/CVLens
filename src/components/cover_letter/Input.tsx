@@ -3,7 +3,6 @@ import { ResumeInput2 } from "../ResumeInput"
 import { JobDescInput2 } from "../JobDescInput"
 import { SelectionInput, TextInput } from "./InfoInput"
 import { parsePdf } from "../../lib/parsePdf"
-import { stat } from "fs"
 
 interface Props {
     setResume: (val: string) => void

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { RefreshCw, Copy, FileText, Check } from 'lucide-react'
+import { RefreshCw, Copy, Check } from 'lucide-react'
 import CoverLetterEditor from './CoverLetterEditor'
 
 interface CoverLetter {

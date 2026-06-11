@@ -1,5 +1,5 @@
 import { Bookmark, BookmarkCheck } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAppContext } from '../../context/AppContext'
 
