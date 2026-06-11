@@ -1,18 +1,20 @@
 import { useState } from 'react'
-import LinkedinInput from '../components/linkedin/LinkedinInput'
 import ScoreCard from '../components/linkedin/ScoreCard'
 import Sections from '../components/linkedin/Sections'
 import StrengthsList from '../components/linkedin/StrengthsList'
-import { analyzeLinkedin } from '../lib/linkedin'
 import { LinkedinResult } from '../types/linkedin'
+import { ResumeInput1 }  from '../components/ResumeInput'
+
 import ProfileOverview from '../components/linkedin/ProfileOverview'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
+import BookmarkButton from '../components/bookmarks/BookmarkButton'
 
 
 
 export default function LinkedInReview() {
     const [profile, setProfile] = useState('')
+    const [fileName, setFileName] = useState('')
     const [result, setResult] = useState<LinkedinResult | null>(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
@@ -27,8 +29,13 @@ export default function LinkedInReview() {
         setLoading(true)
         setResult(null)
         try {
-            const analysis = await analyzeLinkedin(profile)
-            setResult(analysis)
+            const response = await fetch('/api/linkedin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ profile, fileName })
+            })
+            const data = await response.json()
+            setResult(data)
         } catch {
             setError('Something went wrong. Try again.')
         } finally {
@@ -45,22 +52,17 @@ export default function LinkedInReview() {
                     title="LinkedIn Review" 
                     subtitle="Get AI-powered feedback to improve your LinkedIn profile and make a stronger impression."
                 />
-                
+            
 
                 <div className="justify-end">
                     {result && (
-                        <button
-                            onClick={() => {
-                                setResult(null)
-                                setProfile('')
-                                setError('')
-                                setSessionKey(k => k + 1) 
-                            }}
-                            className="text-white bg-indigo-500 
-                                    px-4 py-3 text-white font-semibold rounded-xl transition-colors"
-                        >
-                            New Analysis
-                        </button>
+                        <div className="flex flex-row">
+                            <BookmarkButton
+                                type="linkedin"
+                                inputs={{ profile }}
+                                result={result}
+                            />
+                        </div>
                     )}
                 </div>
 
@@ -69,7 +71,7 @@ export default function LinkedInReview() {
 
             
             {/* Input */}
-            <LinkedinInput key={sessionKey} onChange={setProfile} />
+            <ResumeInput1  key={sessionKey} onChange={setProfile} setFileName={setFileName} />
             
             {/* Error */}
             {error && <p className="text-red-500 text-sm">{error}</p>}

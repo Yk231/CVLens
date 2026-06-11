@@ -67,6 +67,7 @@ export function JobDescInput2({jobDesc, onJobDescSave }: Props2) {
                     <textarea
                         value={jobDescText}
                         onChange={e => setJobDescText(e.target.value)}
+                        onBlur={handleSave}
                         placeholder="Paste the job description here..."
                         className="h-[175px] p-4 border border-gray-200 rounded-xl resize-none
                                     focus:outline-none focus:ring-2 focus:ring-indigo-500

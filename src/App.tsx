@@ -5,15 +5,18 @@ import Auth from './components/auth/Auth'
 import ResumeReview from './tabs/ResumeMatch'
 import LinkedInReview from './tabs/LinkedInReview'
 import ProfilePage from './tabs/ProfilePage'
-import { GitCompareArrowsIcon, PanelsTopLeft, ChevronRight, CircleUser, MessagesSquare, TextInitial } from 'lucide-react'
+import {ChevronRight, CircleUser, MessagesSquare, Bookmark, FileText, FileChartLine, UserStar } from 'lucide-react'
 import InterviewPrep from './tabs/InterviewPrep'
 import CoverLetter from './tabs/CoverLetter'
+import BookmarksTab from './tabs/Bookmarks'
+import { AppContext } from './context/AppContext'
+
 
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null)
   const [isGuest, setIsGuest] = useState(false)
-  const [activeTab, setActiveTab] = useState<'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter'>('resume')
+  const [activeTab, setActiveTab] = useState<'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter' | 'bookmarks'>('resume')
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -45,7 +48,8 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen bg-gray-50 flex flex-col">
+    <AppContext.Provider value={{ session, isGuest, setIsGuest, activeTab, setActiveTab }}>
+      <div className="h-screen bg-gray-50 flex flex-col">
 
       {/* Auth overlay — blurs the app behind it when not signed in */}
       {!session && !isGuest && (
@@ -73,22 +77,21 @@ export default function App() {
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
             >
-              <GitCompareArrowsIcon className="w-8 h-8" />
+              <FileChartLine className="w-8 h-8" />
               Resume Match
             </button>
 
             <button
-              onClick={() => setActiveTab('linkedin')}
+              onClick={() => setActiveTab('coverLetter')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
-                activeTab === 'linkedin'
+                activeTab === 'coverLetter'
                   ? 'bg-blue-50 text-indigo-600'
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
             >
-              <PanelsTopLeft className="w-8 h-8" />
-              LinkedIn Review
+              <FileText className="w-8 h-8" />
+              Cover Letter
             </button>
-
 
             <button
               onClick={() => setActiveTab('interview')}
@@ -103,15 +106,28 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setActiveTab('coverLetter')}
+              onClick={() => setActiveTab('linkedin')}
               className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
-                activeTab === 'coverLetter'
+                activeTab === 'linkedin'
                   ? 'bg-blue-50 text-indigo-600'
                   : 'text-gray-600 hover:bg-gray-100'
               }`}
             >
-              <TextInitial className="w-8 h-8" />
-              Cover Letter
+              <UserStar className="w-8 h-8" />
+              LinkedIn Review
+            </button>
+
+            <hr></hr>
+            <button
+              onClick={() => setActiveTab('bookmarks')}
+              className={`flex items-center gap-5 px-3 py-2 rounded-lg text-md font-medium text-left transition-colors ${
+                activeTab === 'bookmarks'
+                  ? 'bg-blue-50 text-indigo-600'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              <Bookmark className="w-8 h-8" />
+              Bookmarks
             </button>
           </div>
 
@@ -186,10 +202,14 @@ export default function App() {
           )}
           {activeTab === 'interview' && <InterviewPrep />}
           {activeTab === 'coverLetter' && <CoverLetter />}
+          {activeTab === 'bookmarks' && <BookmarksTab />}
+
 
         </main>
 
       </div>
     </div>
+    </AppContext.Provider>
+
   )
 }

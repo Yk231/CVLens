@@ -6,7 +6,7 @@ module.exports = async function handler(req: any, res: any) {
     
     if (req.method !== 'POST') return res.status(405).end()
 
-    const { resume, jobDesc } = req.body
+    const { resume, jobDesc, resumeName } = req.body
 
     if (!resume || !jobDesc) {
         return res.status(400).json({ error: 'Missing resume or job description' })
@@ -31,6 +31,8 @@ module.exports = async function handler(req: any, res: any) {
                             "rewriteSuggestions": array of { "original": string, "improved": string },
                             "summary": string (2-3 sentences),
                             "tip": string (one general resume tip)
+                            "targetRole": string
+                            "targetCompany": string
                         }`
             },
             {
@@ -42,9 +44,11 @@ module.exports = async function handler(req: any, res: any) {
         })
 
         const result = JSON.parse(response.choices[0].message.content!)
+        result.fileName = resumeName
+        result.type = "resumeMatch"
         res.status(200).json(result)
+
     }  catch (error) {
-        console.error('Full error:', error)
         res.status(500).json({ 
         error: String(error),
         message: error instanceof Error ? error.message : 'Unknown error'

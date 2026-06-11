@@ -5,7 +5,7 @@ const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 module.exports = async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).end()
 
-  const { profile } = req.body
+  const { profile, fileName } = req.body
 
   if (!profile) {
     return res.status(400).json({ error: 'Missing LinkedIn profile' })
@@ -58,6 +58,9 @@ module.exports = async function handler(req: any, res: any) {
     })
 
     const result = JSON.parse(response.choices[0].message.content!)
+    result.type = "linkedInReview"
+    result.fileName = fileName
+
     res.status(200).json(result)
   } catch (error) {
     console.error('Full error:', error)

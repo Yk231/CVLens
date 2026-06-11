@@ -4,15 +4,16 @@ import { ResumeInput1 }  from '../components/ResumeInput'
 import ScoreCard from '../components/resume/ScoreCard'
 import StrengthsList from '../components/resume/StrengthsList'
 import RewriteSuggestions from '../components/resume/RewriteSuggestions'
-import { analyzeResume } from '../lib/analyze'
 import { AnalysisResult } from '../types/analysis'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
+import BookmarkButton from '../components/bookmarks/BookmarkButton'
 
 
 
 export default function ResumeReview() {
   const [resume, setResume] = useState('')
+  const [resumeName, setResumeName] = useState('')
   const [jobDesc, setJobDesc] = useState('')
   const [result, setResult] = useState<AnalysisResult | null>(null)
   const [loading, setLoading] = useState(false)
@@ -28,8 +29,13 @@ export default function ResumeReview() {
     setLoading(true)
     setResult(null)
     try {
-      const analysis = await analyzeResume(resume, jobDesc)
-      setResult(analysis)
+      const response = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ resume, jobDesc, resumeName })
+      })
+      const data = await response.json()
+      setResult(data)
     } catch {
       console.error('Analysis error:', error)
       setError('Something went wrong. Try again.')
@@ -50,26 +56,18 @@ export default function ResumeReview() {
 
         <div className="justify-end">
           {result && (
-            <button
-              onClick={() => {
-                  setResult(null)
-                  setResume('')
-                  setJobDesc('')
-                  setError('')
-                  setSessionKey(k => k + 1)  
-              }}
-              className="text-white bg-indigo-500 
-                      px-4 py-3 text-white font-semibold rounded-xl transition-colors"
-            >
-              New Analysis
-            </button>
+            <BookmarkButton
+              type="resume_match"
+              inputs={{ resume, jobDesc,  }}
+              result={result}
+            />
           )}
         </div>
 
       </div>
 
       <div className="grid grid-cols-2 gap-6 mb-6">
-        <ResumeInput1  key={sessionKey} onChange={setResume} />
+        <ResumeInput1  key={sessionKey} onChange={setResume} setFileName={setResumeName} />
         <JobDescInput1 value={jobDesc} onChange={setJobDesc} />
       </div>
 

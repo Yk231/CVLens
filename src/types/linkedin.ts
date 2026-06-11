@@ -23,4 +23,6 @@ export interface LinkedinResult {
   headline: string
   location: string
   link: string
+  fileName: string
+  type: string
 }

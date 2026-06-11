@@ -1,5 +1,10 @@
 export interface CoverLetter {
   traditional: boolean
+  targetRole: string
+  targetCompany: string
+  fileName: string
+  type: string
+
 
   // your information
   name: string
@@ -15,7 +20,6 @@ export interface CoverLetter {
   // company information
   hiringManager: string
   hiringManagerRole: string
-  companyName: string
   companyAddress: string
   companyCity: string
   companyState: string

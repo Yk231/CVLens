@@ -5,6 +5,7 @@ import { ResumeInput1 }  from '../components/ResumeInput'
 import Stats from '../components/interview/Stats'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
+import BookmarkButton from '../components/bookmarks/BookmarkButton'
 
 
 
@@ -18,10 +19,13 @@ interface QnA {
 interface InterviewResult {
     score: number
     QnA: QnA[]
+    targetRole: string 
+    targetCompany: string
 }
 
 export default function InterviewPrep() {
     const [resume, setResume] = useState('')
+    const [resumeName, setResumeName] = useState('')
     const [jobDesc, setJobDesc] = useState('')
     const [result, setResult] = useState<InterviewResult | null>(null)
     const [loading, setLoading] = useState(false)
@@ -44,7 +48,7 @@ export default function InterviewPrep() {
             const response = await fetch('/api/interview', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ resume, jobDesc })
+                body: JSON.stringify({ resume, jobDesc, resumeName })
             })
             const data = await response.json()
             setResult(data)
@@ -85,25 +89,17 @@ export default function InterviewPrep() {
                 />
                 
                 {result && (
-                    <button
-                        onClick={() => { 
-                            setResult(null)
-                            setResume('')
-                            setJobDesc('')
-                            setError('')
-                            setSessionKey(k => k + 1)
-                        }}
-                        className="text-white bg-indigo-500 
-                                    px-4 py-3 text-white font-semibold rounded-xl transition-colors"
-                        >
-                        New Analysis
-                    </button>
+                    <BookmarkButton
+                        type="interview"
+                        inputs={{ resume, jobDesc }}
+                        result={result}
+                    />
                 )}
             </div>
 
             {/* Inputs */}
             <div className="grid grid-cols-2 gap-6">
-                <ResumeInput1 key={sessionKey} onChange={setResume} />
+                <ResumeInput1 key={sessionKey} onChange={setResume} setFileName={setResumeName}/>
                 <JobDescInput1 value={jobDesc} onChange={setJobDesc} />
             </div>
 

@@ -4,6 +4,8 @@ import CoverLetterEditor from './CoverLetterEditor'
 
 interface CoverLetter {
     traditional: boolean
+    targetRole: string
+    targetCompany: string
 
     name: string
     email: string
@@ -17,7 +19,6 @@ interface CoverLetter {
 
     hiringManager: string
     hiringManagerRole: string
-    companyName: string
     companyAddress: string
     companyCity: string
     companyState: string
@@ -47,7 +48,7 @@ export default function CoverLetterOutput({ result, onRegenerate, canRegenerate 
             `<p></p>`,
             result.hiringManager ? `<p>${result.hiringManager}</p>` : '',
             result.hiringManagerRole ? `<p>${result.hiringManagerRole}</p>` : '',
-            `<p>${result.companyName}</p>`,
+            `<p>${result.targetCompany}</p>`,
             `<p>${result.companyAddress}</p>`,
             `<p>${result.companyCity}, ${result.companyState} ${result.companyZip}</p>`,
             `<p></p>`,

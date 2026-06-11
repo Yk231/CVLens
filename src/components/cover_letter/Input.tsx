@@ -7,6 +7,7 @@ import { stat } from "fs"
 
 interface Props {
     setResume: (val: string) => void
+    setResumeName: (val: string) => void
     setJobDesc: (val: string) => void
     tone: string; setTone: (val: string) => void
     length: string; setLength: (val: string) => void
@@ -22,6 +23,7 @@ interface Props {
 
 export default function Input({
     setResume, 
+    setResumeName,
     setJobDesc, 
     tone, setTone,
     length, setLength,
@@ -47,6 +49,7 @@ export default function Input({
             const file = (e.target as HTMLInputElement).files?.[0]
             if (!file) return
             setResumeMeta({ name: file.name, sizeKb: Math.round(file.size / 1024) })
+            setResumeName(file.name)
             const text = await parsePdf(file)
             setResume(text)  // ← passes text up to CoverLetterGenerator
         }

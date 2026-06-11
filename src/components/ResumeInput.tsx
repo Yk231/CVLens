@@ -5,11 +5,12 @@ import { parsePdf } from '../lib/parsePdf'
 
 interface Props1 {
     onChange: (val: string) => void
+    setFileName: (val: string) => void
 }
 
-export function ResumeInput1({ onChange }: Props1) {
+export function ResumeInput1({ onChange, setFileName }: Props1) {
     const [uploading, setUploading] = useState(false)
-    const [fileName, setFileName] = useState('')
+    const [localFileName, setLocalFileName] = useState('')
     const fileRef = useRef<HTMLInputElement>(null)
 
 
@@ -18,13 +19,13 @@ export function ResumeInput1({ onChange }: Props1) {
         if (!file) return
 
         setUploading(true)
-        setFileName(file.name)
+        
 
         try {
             const text = await parsePdf(file)
-            console.log('Parsed text length:', text.length)
-            console.log('Sample:', text.substring(0, 100))
             onChange(text)
+            setFileName(file.name)
+            setLocalFileName(file.name)
         } catch (error) {
             alert('Failed to parse PDF.')
             console.error(error)
@@ -57,10 +58,10 @@ export function ResumeInput1({ onChange }: Props1) {
                         <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
                         <p className="text-sm text-slate-500">Parsing PDF...</p>
                     </>
-                ) : fileName ? (
+                ) : localFileName ? (
                     <>
                         <FileText className="w-10 h-10 text-indigo-500" />
-                        <p className="text-sm font-medium text-slate-700">{fileName}</p>
+                        <p className="text-sm font-medium text-slate-700">{localFileName}</p>
                         <p className="text-xs text-slate-400">Click to replace</p>
                     </>
                 ) : (
@@ -71,7 +72,7 @@ export function ResumeInput1({ onChange }: Props1) {
                     </>
                 )}
             </div>
-            {fileName && !uploading && (
+            {localFileName && !uploading && (
                 <p className="text-xs text-green-600 font-medium">
                     ✓ Upload successful
                 </p>

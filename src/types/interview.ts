@@ -6,4 +6,8 @@ export interface interviewPrep {
     answer: string[]
     keyPoints: string[]
   }[]
+  targetRole: string
+  targetCompany: string
+  fileName: string
+  type: string
 }

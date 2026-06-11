@@ -6,7 +6,7 @@ module.exports = async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).end()
 
   const { 
-    resume, jobDesc, 
+    resume, jobDesc, resumeName,
     tone, length, additionalInfo, format,
     hiringManager, hiringManagerRole, 
     address, city, state, zip
@@ -49,7 +49,8 @@ module.exports = async function handler(req: any, res: any) {
                               "city": string
                               "state": string
                               "zip": string
-                              "companyName": string
+                              "targetCompany": string
+                              "targetRole": string
                               "paragraphs": string[]
                             }`
               },
@@ -71,7 +72,10 @@ module.exports = async function handler(req: any, res: any) {
       result.companyCity = city || ''
       result.companyState = state || ''
       result.companyZip = zip || ''
-      
+      result.type = "coverLetter"
+      result.fileName = resumeName
+
+    
       res.status(200).json(result)
   } catch (error) {
     res.status(500).json({ error: String(error) })

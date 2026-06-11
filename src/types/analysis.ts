@@ -9,4 +9,9 @@ export interface AnalysisResult {
   }[]
   summary: string
   tip: string
+  targetRole: string
+  targetCompany: string
+  fileName: string
+  type: string
+
 }

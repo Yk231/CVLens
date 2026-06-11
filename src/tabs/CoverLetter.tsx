@@ -5,6 +5,7 @@ import Output from '../components/cover_letter/Output'
 import Header from '../components/Header'
 import AnalyzeButton from '../components/AnalyzeButton'
 import { CoverLetter } from '../types/coverLetter'
+import BookmarkButton from '../components/bookmarks/BookmarkButton'
 
 
 export default function CoverLetterGenerator() {
@@ -15,6 +16,9 @@ export default function CoverLetterGenerator() {
 
     const [resume, setResume] = useState('')
     const [jobDesc, setJobDesc] = useState('')
+    const [resumeName, setResumeName] = useState('')
+
+
     const [tone, setTone] = useState('')
     const [length, setLength] = useState('')
     const [additionalInfo, setAdditionalInfo] = useState('')
@@ -41,10 +45,9 @@ export default function CoverLetterGenerator() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    resume, jobDesc, 
-                    tone, length, additionalInfo, format,
-                    hiringManager, hiringManagerRole,
-                    address, city, state, zip
+                    resume, jobDesc, resumeName,
+                    tone, length, additionalInfo, format, hiringManager,
+                    hiringManagerRole, address, city, state, zip
                 })
             })
             const data = await response.json()
@@ -71,6 +74,14 @@ export default function CoverLetterGenerator() {
                     title="Cover Letter" 
                     subtitle="Use AI to write a personalized cover letter tailored to a particular job description."
                 />
+
+                {result && (
+                    <BookmarkButton
+                        type="cover_letter"
+                        inputs={{ resume, jobDesc }}
+                        result={result}
+                    />
+                )}
             </div>
 
 
@@ -79,6 +90,7 @@ export default function CoverLetterGenerator() {
             <div className="grid grid-cols-[650px_1.5fr] gap-4">
                 <Input
                     setResume={setResume}
+                    setResumeName={setResumeName}
                     setJobDesc={setJobDesc}
                     tone={tone} setTone={setTone}
                     length={length} setLength={setLength}
@@ -91,7 +103,7 @@ export default function CoverLetterGenerator() {
                     state={state} setState={setState}
                     zip={zip} setZip={setZip}
                 />
-                <div className="flex flex-col gap-6 ">
+                <div className="flex flex-col gap-6">
 
                     {/* Output */}
                     {result ? (
