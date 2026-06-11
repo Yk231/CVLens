@@ -29,7 +29,10 @@ module.exports = async function handler(req: any, res: any) {
                             
                             Guidelines:
                             - Tone: ${tone || 'professional'}
-                            - Length: ${length || 'standard'} (short = ~150 words, standard = ~300 words, detailed = ~450 words, exlcuding the header)
+                            - Length: ${length || 'standard'} 
+                              * Short = 3 body paragraphs, ~200 words total
+                              * Standard = 4 body paragraphs, ~350 words total  
+                              * Detailed = 5 body paragraphs, ~450 words total
                             - Additional info: ${additionalInfo || ''} 
                             - Open with a strong hook that references the specific company and role
                             - Reference specific achievements and skills from the resume that match the job description
