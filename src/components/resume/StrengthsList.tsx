@@ -4,7 +4,6 @@ import { ThumbsUp, CircleCheck, Sparkles, CirclePlus, OctagonX } from 'lucide-re
 interface Props {
     strengths: string[]
     weaknesses: string[]
-    tip: string
 }
 
 function Section({label, bulletpoints}: {
@@ -60,28 +59,14 @@ function Section({label, bulletpoints}: {
     )
 }
 
-function AITip({ tip }: {
-    tip: string
-}) {
-    return (
-        <div className="flex flex-row gap-4 rounded-2xl border border-purple-200 bg-purple-100 p-6 shadow-sm items-center">
 
-            <div className="flex flex-row items-center gap-4">
-                <Sparkles className="w-5 h-5 text-purple-900" />
-                <h3 className="text-lg font-semibold text-purple-900 whitespace-nowrap flex-shrink-0">AI Tip:</h3>            </div>
 
-            <p className="text-md text-slate-900">{tip}</p>
-
-        </div>
-    )
-}
-
-export default function StrengthsList({ strengths, weaknesses, tip }: Props) {
+export default function StrengthsList({ strengths, weaknesses }: Props) {
     return (
         <div className="flex flex-col gap-4"> 
         
         
-            <div className="flex flex-row gap-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-row gap-4">
 
                 <Section
                     label="Strengths"
@@ -95,7 +80,8 @@ export default function StrengthsList({ strengths, weaknesses, tip }: Props) {
 
             </div>
 
-            <AITip tip={tip} />
+            
+            
         </div>
     )
 }

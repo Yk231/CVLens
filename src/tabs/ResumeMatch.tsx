@@ -9,6 +9,7 @@ import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
 import { useAppContext } from '../context/AppContext'
+import SectionBreakdown from '../components/resume/SectionBreakdown'
 
 
 export default function ResumeReview() {
@@ -87,13 +88,25 @@ export default function ResumeReview() {
 
       {result && !loading && (
         <div className="flex flex-col gap-8">
-                <ScoreCard data={result} />
-                <StrengthsList
+              <ScoreCard data={result} />
+              
+              <div className="grid grid-cols-[1fr_400px] gap-4">
+     
+                <div className="flex flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <StrengthsList
                     strengths={result.strengths}
                     weaknesses={result.weaknesses}
-                    tip={result.tip}
+                  />
+                  <hr className="border-slate-200" />
+                  <RewriteSuggestions suggestions={result.rewriteSuggestions} />
+                </div>
+
+                <SectionBreakdown
+                  sectionScores={result.sectionScores}
+                  generalTip={result.generalTip}
                 />
-                <RewriteSuggestions suggestions={result.rewriteSuggestions} />
+              </div>
+              
             </div>
       )}
     </div>

@@ -1,5 +1,5 @@
+import { Dot, Lightbulb } from 'lucide-react'
 import { AnalysisResult } from '../../types/analysis'
-import KeywordBadges from './KeywordBadges'
 
 interface Props {
     data: AnalysisResult
@@ -31,10 +31,10 @@ export default function ScoreCard({ data }: Props) {
     return (
 
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="grid grid-cols-[250px_1fr_1fr] gap-8">
+      <div className="grid grid-cols-[250px_1fr_1fr] gap-8 divide-x divide-slate-200">
 
         {/*Score*/}
-        <div className="flex flex-col items-center justify-center border-b border-slate-200 pb-6 md:border-b-0 md:border-r md:pr-12 gap-4">
+        <div className="flex flex-col items-center justify-center pb-6 gap-4">
             
             <h3 className="text-xl font-semibold text-slate-900">Overall Score</h3>
 
@@ -67,7 +67,7 @@ export default function ScoreCard({ data }: Props) {
         </div>
 
         {/*Summary*/}
-        <div className="self-start">
+        <div className="flex flex-col gap-4 pl-10">
             <h3 className="text-xl font-semibold text-slate-900">Summary</h3>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
                 {data.summary}
@@ -75,7 +75,18 @@ export default function ScoreCard({ data }: Props) {
         </div>
 
         {/*Missing Keywords*/}
-        <KeywordBadges keywords={data.missingKeywords ?? []} />
+        <div className="flex flex-col gap-4 pl-10">
+            <h2 className="text-xl font-bold text-gray-800 mb-3">Missing Keywords</h2>
+            <div className="flex flex-wrap gap-2">
+            {data.missingKeywords.map(k => (
+                <span key={k} className="bg-red-50 text-red-600 border border-red-200
+                                        px-3 py-1 rounded-full text-sm font-medium">
+                {k}
+                </span>
+            ))}
+            </div>
+        </div>
+       
 
 
 

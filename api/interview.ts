@@ -20,8 +20,12 @@ module.exports = async function handler(req: any, res: any) {
                 content: `Act a senior recruiter for the exact company in the given job description. 
                         Given the job description and the resume, give EXACTLY 10 questions you are most likely going to ask.
                         Also give why each question might be asked, the suggested answers to each question (make them lengthy and very detailed), and the key points the answer covers
+                        The first several questions should be general. Including but not limited to: 
+                        * Tell me about yourself?
+                        * Why are you interested in this role?
+                        * Do you have any questions for us?
+                        AT LEAST 4 questions should be technical questions.
                         Finally, give a match score between the resume and job description
-                        The first several questions should be general (Ex. tell me about yourself, why are you interested in this role, do you have any questions for us).
                         Note: the resume text may have extra spaces or formatting artifacts from PDF
                         Respond ONLY with valid JSON in exactly this format:
                         {

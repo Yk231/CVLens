@@ -19,21 +19,33 @@ module.exports = async function handler(req: any, res: any) {
             {
                 role: 'system',
                 content: `Act a senior recruiter for the exact company in the given job description. 
-                        Analyze the resume against the job description thoroughly.
-                        Assume there are hundreds of applicants for one position, so don't be afraid to be harsh and realistic.
+                        Analyze the resume against the job description thoroughly. Don't be afraid to be harsh or realistic.
+                        Rewrite suggestions should be for FULL SECTIONS. Do not take singular bullet
                         Note: the resume text may have extra spaces or formatting artifacts from PDF
                         Respond ONLY with valid JSON in exactly this format:
                         {
                             "matchScore": number between 0-100,
+                            "summary": string (2-3 sentences),
                             "missingKeywords": array of strings (top 5 missing keywords),
                             "strengths": array of strings,
                             "weaknesses": array of strings (red flags a hiring manager would spot in under 15 seconds),
-                            "rewriteSuggestions": array of { "original": string, "improved": string },
-                            "summary": string (2-3 sentences),
-                            "tip": string (one general resume tip)
+                            "rewriteSuggestions":{
+                                "role": string
+                                "organization": string
+                                "location": string
+                                "before": array of strings
+                                "after": array of strings
+                            }[]
+                            "sectionScores":{
+                                "skills": number between 0-100
+                                "experience": number between 0-100
+                                "keywords": number between 0-100
+                            }
+                            "generalTip": string (one general resume tip)
                             "targetRole": string
                             "targetCompany": string
                         }`
+                        
             },
             {
                 role: 'user',
