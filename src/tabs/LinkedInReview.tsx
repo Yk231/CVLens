@@ -2,7 +2,6 @@ import { useState } from 'react'
 import ScoreCard from '../components/linkedin/ScoreCard'
 import Sections from '../components/linkedin/Sections'
 import StrengthsList from '../components/linkedin/StrengthsList'
-import { LinkedinResult } from '../types/linkedin'
 import { ResumeInput1 }  from '../components/ResumeInput'
 
 import ProfileOverview from '../components/linkedin/ProfileOverview'
@@ -16,10 +15,9 @@ export default function LinkedInReview() {
     const { bookmarkData } = useAppContext()
     const [profile, setProfile] = useState(bookmarkData?.inputs.profile ?? '')
     const [result, setResult] = useState(bookmarkData?.result ?? null)
-    const [fileName, setFileName] = useState('')
+    const [fileName, setFileName] = useState(bookmarkData?.inputs?.fileName ?? '')
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
-    const [sessionKey, setSessionKey] = useState(0)
 
     async function handleAnalyze() {
         if (!profile || !profile.trim()) {
@@ -60,8 +58,9 @@ export default function LinkedInReview() {
                         <div className="flex flex-row">
                             <BookmarkButton
                                 type="linkedin"
-                                inputs={{ profile }}
+                                inputs={{ profile, fileName }}
                                 result={result}
+                                initialBookmarkId={bookmarkData?.id ?? null}
                             />
                         </div>
                     )}
@@ -72,7 +71,7 @@ export default function LinkedInReview() {
 
             
             {/* Input */}
-            <ResumeInput1  key={sessionKey} onChange={setProfile} setFileName={setFileName} />
+            <ResumeInput1 onChange={setProfile} setFileName={setFileName} initialFileName={bookmarkData?.inputs?.fileName} />
             
             {/* Error */}
             {error && <p className="text-red-500 text-sm">{error}</p>}

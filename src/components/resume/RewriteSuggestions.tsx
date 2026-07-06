@@ -1,7 +1,7 @@
 import { ArrowRight, SquarePen } from "lucide-react";
 
 interface Props {
-    suggestions: { original: string; improved: string }[]
+    suggestions: { before: string; after: string }[]
 }
 
 export default function RewriteSuggestions({ suggestions }: Props) {
@@ -20,12 +20,12 @@ export default function RewriteSuggestions({ suggestions }: Props) {
             <div key={i} className="grid items-center gap-4" style={{ gridTemplateColumns: '1fr auto 1fr' }}>
                 <div className="bg-red-50 border border-red-100 p-4 rounded-xl h-full">
                     <div className="text-sm font-semibold text-red-500 mb-2">BEFORE</div>
-                    <p className="text-sm text-slate-700 font-medium">{s.original}</p>
+                    <p className="text-sm text-slate-700 font-medium">{s.before}</p>
                 </div>
                 <ArrowRight className="text-slate-400" />
                 <div className="bg-green-50 border border-green-100 p-4 rounded-xl h-full">
                     <div className="text-sm font-semibold text-green-500 mb-2">AFTER</div>
-                    <p className="text-sm text-slate-700 font-medium">{s.improved}</p>
+                    <p className="text-sm text-slate-700 font-medium">{s.after}</p>
                 </div>
             </div>
         ))}

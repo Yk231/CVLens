@@ -44,7 +44,7 @@ export default function ProfilePage({ firstName = '', lastName = '', email, user
   async function handleSave() {
     if (!userId) return
     if (!firstNameValue.trim() && !lastNameValue.trim()){
-      setNameError('First and last name are required')
+      setNameError('First name required')
       return
     }
     setNameError('')
@@ -148,7 +148,12 @@ export default function ProfilePage({ firstName = '', lastName = '', email, user
                     {saving ? 'Saving...' : 'Save'}
                   </button>
                   <button
-                    onClick={() => { setEditingName(false); setNameError('') }}
+                    onClick={() => { 
+                      setEditingName(false)
+                      setNameError('') 
+                      setFirstNameValue(firstName ?? '')
+                      setLastNameValue(lastName ?? '')
+                    }}
                     className="text-slate-400 px-3 py-1.5 rounded-lg text-sm hover:text-slate-600"
                   >
                     Cancel

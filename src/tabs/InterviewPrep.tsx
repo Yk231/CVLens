@@ -26,16 +26,15 @@ interface InterviewResult {
 export default function InterviewPrep() {
     const { bookmarkData } = useAppContext()
     const [result, setResult] = useState<InterviewResult | null>(bookmarkData?.result ?? null)
-    const [resume, setResume] = useState(bookmarkData?.inputs?.resume ?? '')
-    const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs?.jobDesc ?? '')
-
-    const [resumeName, setResumeName] = useState('')
+    const [resume, setResume] = useState(bookmarkData?.inputs.resume ?? '')
+    const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs.jobDesc ?? '')
+    const [resumeName, setResumeName] = useState(bookmarkData?.inputs?.resumeName ?? '')
+    
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [selectedQuestion, setSelectedQuestion] = useState(0)
     const [copiedAnswer, setCopiedAnswer] = useState(false)
     const [copiedQustion, setCopiedQuestion] = useState(false)
-    const [sessionKey, setSessionKey] = useState(0)
 
     async function handleAnalyze() {
         if (!resume.trim() || !jobDesc.trim()) {
@@ -93,15 +92,16 @@ export default function InterviewPrep() {
                 {result && (
                     <BookmarkButton
                         type="interview"
-                        inputs={{ resume, jobDesc }}
+                        inputs={{ resume, jobDesc, resumeName }}
                         result={result}
+                        initialBookmarkId={bookmarkData?.id ?? null}
                     />
                 )}
             </div>
 
             {/* Inputs */}
             <div className="grid grid-cols-2 gap-6">
-                <ResumeInput1 key={sessionKey} onChange={setResume} setFileName={setResumeName}/>
+                <ResumeInput1 onChange={setResume} setFileName={setResumeName} initialFileName={bookmarkData?.inputs?.resumeName} />
                 <JobDescInput1 value={jobDesc} onChange={setJobDesc} />
             </div>
 

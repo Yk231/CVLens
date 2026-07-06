@@ -4,7 +4,6 @@ import OutputPreview from '../components/cover_letter/Preview'
 import Output from '../components/cover_letter/Output'
 import Header from '../components/Header'
 import AnalyzeButton from '../components/AnalyzeButton'
-import { CoverLetter } from '../types/coverLetter'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
 import { useAppContext } from '../context/AppContext'
 
@@ -13,13 +12,12 @@ export default function CoverLetterGenerator() {
     const [result, setResult] = useState(bookmarkData?.result ?? null)
     const [resume, setResume] = useState(bookmarkData?.inputs.resume ?? '')
     const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs.jobDesc ?? '')
+    const [resumeName, setResumeName] = useState(bookmarkData?.inputs?.resumeName ?? '')
+    const [resumeSize, setResumeSize] = useState<number>(bookmarkData?.inputs?.resumeSize ?? 0)
 
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [resultKey, setResultKey] = useState(0)
-    
-    const [resumeName, setResumeName] = useState('')
-
 
     const [tone, setTone] = useState('')
     const [length, setLength] = useState('')
@@ -80,8 +78,9 @@ export default function CoverLetterGenerator() {
                 {result && (
                     <BookmarkButton
                         type="cover_letter"
-                        inputs={{ resume, jobDesc }}
+                        inputs={{ resume, jobDesc, resumeName, resumeSize }}
                         result={result}
+                        initialBookmarkId={bookmarkData?.id ?? null}
                     />
                 )}
             </div>
@@ -93,7 +92,12 @@ export default function CoverLetterGenerator() {
                 <Input
                     setResume={setResume}
                     setResumeName={setResumeName}
+                    setResumeSize={setResumeSize}
                     setJobDesc={setJobDesc}
+                    initialResumeName={bookmarkData?.inputs?.resumeName}
+                    initialResumeSize={bookmarkData?.inputs?.resumeSize}
+                    initialJobDesc={bookmarkData?.inputs?.jobDesc}
+
                     tone={tone} setTone={setTone}
                     length={length} setLength={setLength}
                     additionalInfo={additionalInfo} setAdditionalInfo={setAdditionalInfo}

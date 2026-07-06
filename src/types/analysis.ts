@@ -4,8 +4,8 @@ export interface AnalysisResult {
   strengths: string[]
   weaknesses: string[]
   rewriteSuggestions: {
-    original: string
-    improved: string
+    before: string
+    after: string
   }[]
   summary: string
   sectionScores:{

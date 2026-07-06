@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThumbsUp, CircleCheck, Sparkles, CirclePlus, OctagonX } from 'lucide-react'
+import { ThumbsUp, CircleCheck, CirclePlus, OctagonX } from 'lucide-react'
 
 interface Props {
     strengths: string[]

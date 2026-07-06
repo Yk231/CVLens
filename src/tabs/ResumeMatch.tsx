@@ -4,7 +4,6 @@ import { ResumeInput1 }  from '../components/ResumeInput'
 import ScoreCard from '../components/resume/ScoreCard'
 import StrengthsList from '../components/resume/StrengthsList'
 import RewriteSuggestions from '../components/resume/RewriteSuggestions'
-import { AnalysisResult } from '../types/analysis'
 import AnalyzeButton from '../components/AnalyzeButton'
 import Header from '../components/Header'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
@@ -17,11 +16,10 @@ export default function ResumeReview() {
   const [result, setResult] = useState(bookmarkData?.result ?? null)
   const [resume, setResume] = useState(bookmarkData?.inputs.resume ?? '')
   const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs.jobDesc ?? '')
+  const [resumeName, setResumeName] = useState(bookmarkData?.inputs?.resumeName ?? '')
   
-  const [resumeName, setResumeName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [sessionKey, setSessionKey] = useState(0)
 
   async function handleAnalyze() {
     if (!resume || !resume.trim() || !jobDesc.trim()) {
@@ -61,8 +59,9 @@ export default function ResumeReview() {
           {result && (
             <BookmarkButton
               type="resume_match"
-              inputs={{ resume, jobDesc,  }}
+              inputs={{ resume, jobDesc, resumeName }}
               result={result}
+              initialBookmarkId={bookmarkData?.id ?? null}
             />
           )}
         </div>
@@ -70,7 +69,7 @@ export default function ResumeReview() {
       </div>
 
       <div className="grid grid-cols-2 gap-6 mb-6">
-        <ResumeInput1  key={sessionKey} onChange={setResume} setFileName={setResumeName} />
+        <ResumeInput1  onChange={setResume} setFileName={setResumeName} initialFileName={bookmarkData?.inputs?.resumeName} />
         <JobDescInput1 value={jobDesc} onChange={setJobDesc} />
       </div>
 

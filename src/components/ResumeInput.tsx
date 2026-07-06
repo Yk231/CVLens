@@ -6,11 +6,14 @@ import { parsePdf } from '../lib/parsePdf'
 interface Props1 {
     onChange: (val: string) => void
     setFileName: (val: string) => void
+    initialFileName?: string
 }
 
-export function ResumeInput1({ onChange, setFileName }: Props1) {
+export function ResumeInput1({ onChange, setFileName, initialFileName}: Props1) {
     const [uploading, setUploading] = useState(false)
-    const [localFileName, setLocalFileName] = useState('')
+    const [localFileName, setLocalFileName] = useState(initialFileName ?? '')
+    const [isPreFilled] = useState(!!initialFileName)
+    
     const fileRef = useRef<HTMLInputElement>(null)
 
 
@@ -18,14 +21,13 @@ export function ResumeInput1({ onChange, setFileName }: Props1) {
         const file = e.target.files?.[0]
         if (!file) return
 
+        setLocalFileName(file.name)
         setUploading(true)
         
-
         try {
             const text = await parsePdf(file)
             onChange(text)
             setFileName(file.name)
-            setLocalFileName(file.name)
         } catch (error) {
             alert('Failed to parse PDF.')
             console.error(error)
@@ -40,11 +42,8 @@ export function ResumeInput1({ onChange, setFileName }: Props1) {
 
             <div
                 onClick={() => fileRef.current?.click()}
-                className="h-72 border-2 border-dashed border-slate-200 rounded-xl
-                           flex flex-col items-center justify-center gap-3
-                           cursor-pointer hover:border-indigo-400 hover:bg-indigo-50
-                           transition-colors"
-            >
+                className={`h-72 border-2 border-slate-200 rounded-xl flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-indigo-400 hover:bg-indigo-50 transition-colors
+                            ${localFileName ? '' : 'border-dashed'}`}>
                 <input
                     ref={fileRef}
                     type="file"
@@ -72,7 +71,7 @@ export function ResumeInput1({ onChange, setFileName }: Props1) {
                     </>
                 )}
             </div>
-            {localFileName && !uploading && (
+            {localFileName && !uploading && !isPreFilled && (
                 <p className="text-xs text-green-600 font-medium">
                     ✓ Upload successful
                 </p>
@@ -84,7 +83,7 @@ export function ResumeInput1({ onChange, setFileName }: Props1) {
 
 
 
-interface ResumeFile {
+export interface ResumeFile {
     name: string
     sizeKb: number
 }

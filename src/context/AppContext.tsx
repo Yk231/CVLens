@@ -9,6 +9,8 @@ interface AppContextType {
     setActiveTab: (val: 'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter' | 'bookmarks') => void
     bookmarkData: any
     setBookmarkData: (val: any) => void
+    bookmarkId: string | null
+    setBookmarkId: (val: string | null) => void
 }
 
 export const AppContext = createContext<AppContextType>({
@@ -18,7 +20,9 @@ export const AppContext = createContext<AppContextType>({
     activeTab: 'resume',
     setActiveTab: () => {},
     bookmarkData: null,
-    setBookmarkData: () => {}
+    setBookmarkData: () => {},
+    bookmarkId: null,
+    setBookmarkId: () => {}
 })
 
 export function useAppContext() {

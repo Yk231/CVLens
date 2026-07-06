@@ -14,15 +14,16 @@ export function JobDescInput1({ value, onChange }: Props1) {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="Paste the job description here..."
-        className="h-72 p-4 border border-gray-200 rounded-xl resize-none
+        className={`h-72 p-4 border-2 rounded-xl resize-none
                     focus:outline-none focus:ring-2 focus:ring-indigo-500
-                    text-sm text-gray-700 bg-gray-50"
+                    text-sm text-gray-700 bg-gray-50 border-slate-200
+                    ${value ? '' : 'border-dashed'}`}
         />
     </div>
     )
 }
 
-interface JobDesc {
+export interface JobDesc {
     title: string
     wordCount: number
 }
@@ -30,19 +31,18 @@ interface JobDesc {
 interface Props2 {
     jobDesc: JobDesc | null
     onJobDescSave: (text: string) => void
+    initialText?: string
 }
 
-export function JobDescInput2({jobDesc, onJobDescSave }: Props2) {
-    const [jobDescText, setJobDescText] = useState("")
-    const [isEditing, setIsEditing] = useState(true)
+export function JobDescInput2({ jobDesc, onJobDescSave, initialText }: Props2) {
+    const [jobDescText, setJobDescText] = useState(initialText ?? '')
+    const [isEditing, setIsEditing] = useState(!initialText) // start collapsed if pre-filled
 
     const handleSave = () => {
         if (!jobDescText.trim()) return
         onJobDescSave(jobDescText)
         setIsEditing(false)
     }
-
-    const wordCount = jobDescText.trim().split(/\s+/).filter(Boolean).length
 
     return (
         <div>

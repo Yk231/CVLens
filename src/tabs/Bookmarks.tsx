@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { Trash2, Eye, MessagesSquare, Bookmark, FileText, FileChartLine, UserStar, RefreshCw } from 'lucide-react'
+import { Trash2, Eye, MessagesSquare, Bookmark, FileText, FileChartLine, UserStar } from 'lucide-react'
 import Header from '../components/Header'
 import InputSpan from '../components/bookmarks/InputSpan'
 import { useAppContext } from '../context/AppContext'
@@ -154,7 +154,8 @@ export default function BookmarksTab() {
                         ) : (
                             bookmarks.map(bookmark => {
                                 const Icon = TYPE_ICONS[bookmark.type]
-                                return (<tr key={bookmark.id} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                                return (
+                                <tr key={bookmark.id} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
                                     <td className="px-6 py-4">
                                         <div className={`flex flex-row items-center gap-6 p-4 items-center justify-center ${TYPE_COLORS[bookmark.type]} rounded-xl`}>
                                             <Icon className="w-12 h-12" />
@@ -184,10 +185,11 @@ export default function BookmarksTab() {
                                     <td className="px-6 py-4">
                                         <div className="flex flex-row gap-2">
                                             <button onClick={() => {
-                                                setBookmarkData({ inputs: bookmark.inputs, result: bookmark.result })
+                                                setBookmarkData({ id: bookmark.id, inputs: bookmark.inputs, result: bookmark.result })
                                                 setActiveTab(bookmark.type === 'resume_match' ? 'resume' : 
                                                             bookmark.type === 'cover_letter' ? 'coverLetter' :
-                                                            bookmark.type === 'interview' ? 'interview' : 'linkedin')
+                                                            bookmark.type === 'interview' ? 'interview' 
+                                                            : 'linkedin')
                                             }}
                                                 className="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
                                                 aria-label="View"

@@ -1,4 +1,3 @@
-import { Dot, Lightbulb } from 'lucide-react'
 import { AnalysisResult } from '../../types/analysis'
 
 interface Props {

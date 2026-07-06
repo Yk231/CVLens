@@ -19,6 +19,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'resume' | 'linkedin' | 'profile' | 'interview' | 'coverLetter' | 'bookmarks'>('resume')
   const [loading, setLoading] = useState(true)
   const [bookmarkData, setBookmarkData] = useState<any>(null)
+  const [bookmarkId, setBookmarkId] = useState<string | null>(null)
 
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function App() {
   }
 
   return (
-    <AppContext.Provider value={{ session, isGuest, setIsGuest, activeTab, setActiveTab, bookmarkData, setBookmarkData }}>
+    <AppContext.Provider value={{ session, isGuest, setIsGuest, activeTab, setActiveTab, bookmarkData, setBookmarkData, bookmarkId, setBookmarkId }}>
       <div className="h-screen bg-gray-50 flex flex-col">
 
       {/* Auth overlay — blurs the app behind it when not signed in */}

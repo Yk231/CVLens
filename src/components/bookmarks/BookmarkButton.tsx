@@ -8,13 +8,14 @@ interface Props {
     type: 'resume_match' | 'linkedin' | 'interview' | 'cover_letter'
     inputs: Record<string, any>
     result: Record<string, any>
+    initialBookmarkId?: string | null
 }
 
-export default function BookmarkButton({ type, inputs, result }: Props) {
-    const [saved, setSaved] = useState(false)
+export default function BookmarkButton({ type, inputs, result, initialBookmarkId }: Props) {
+    const { setIsGuest, bookmarkId: contextBookmarkId, setBookmarkId: setContextBookmarkId } = useAppContext()
+    const [saved, setSaved] = useState(!!initialBookmarkId)
+    const [bookmarkId, setBookmarkId] = useState<string | null>(initialBookmarkId ?? null)
     const [loading, setLoading] = useState(false)
-    const [bookmarkId, setBookmarkId] = useState<string | null>(null)
-    const { session, setIsGuest } = useAppContext()
 
     async function handleToggle() {
         setLoading(true)
@@ -36,6 +37,7 @@ export default function BookmarkButton({ type, inputs, result }: Props) {
                 if (!error) {
                     setSaved(false)
                     setBookmarkId(null)
+                    setContextBookmarkId(null)
                 }
             }
             // Handle saving 
@@ -48,6 +50,7 @@ export default function BookmarkButton({ type, inputs, result }: Props) {
                 if (!error && data) {
                     setSaved(true)
                     setBookmarkId(data.id)
+                    setContextBookmarkId(data.id)
                 }
             }
         } catch (e) {
@@ -60,30 +63,17 @@ export default function BookmarkButton({ type, inputs, result }: Props) {
     return (
         <div className="relative">
             
-            {/* Bookmark button */}
-            <div className="flex flex-row rounded-xl border border-slate-200 bg-gray-100 p-6 gap-10">
-                
-                
-                
-                <div className="flex flex-col">
-                    <span className="font-medium text-lg text-slate-900">Like what you see?</span>
-                    <span className="text-md text-slate-500">Save this analysis and revisit it later</span>
-                </div>
-            
-                
-
-                <button
+            <button
                     onClick={handleToggle}
                     disabled={loading}
-                    className="flex items-center gap-2 text-sm border px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50
-                            text-indigo-600 border-indigo-200 hover:bg-indigo-50"
+                    className="flex items-center gap-2 text-base border px-5 py-3 rounded-lg transition-colors disabled:opacity-50
+                            text-indigo-600 font-semibold border-indigo-200 hover:bg-indigo-50"
                 >
                     {saved
-                        ? <><BookmarkCheck className="w-3.5 h-3.5" /> Saved</>
-                        : <><Bookmark className="w-3.5 h-3.5" /> Save to Bookmarks</>
+                        ? <><BookmarkCheck className="w-5 h-5" /> Saved</>
+                        : <><Bookmark className="w-5 h-5" /> Save to Bookmarks</>
                     }
-                </button>
-            </div>
+            </button>
 
         </div>
     )

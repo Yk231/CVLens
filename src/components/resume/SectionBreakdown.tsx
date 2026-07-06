@@ -1,4 +1,4 @@
-import { Code2, BriefcaseBusiness, TextSearch, Lightbulb, Dot, Sparkles } from 'lucide-react'
+import { Code2, BriefcaseBusiness, TextSearch, Sparkles } from 'lucide-react'
 
 interface Props {
     sectionScores: {

@@ -8,6 +8,11 @@ interface Props {
     setResume: (val: string) => void
     setResumeName: (val: string) => void
     setJobDesc: (val: string) => void
+    setResumeSize: (val: number) => void
+    initialResumeName?: string
+    initialResumeSize?: number
+    initialJobDesc?: string
+
     tone: string; setTone: (val: string) => void
     length: string; setLength: (val: string) => void
     additionalInfo: string; setAdditionalInfo: (val: string) => void
@@ -24,6 +29,11 @@ export default function Input({
     setResume, 
     setResumeName,
     setJobDesc, 
+    setResumeSize,
+    initialResumeName,
+    initialResumeSize,
+    initialJobDesc,
+
     tone, setTone,
     length, setLength,
     additionalInfo, setAdditionalInfo,
@@ -37,8 +47,13 @@ export default function Input({
 
 }: Props) {
 
-    const [resumeMeta, setResumeMeta] = useState<{ name: string; sizeKb: number } | null>(null)
-    const [jobDescMeta, setJobDescMeta] = useState<{ title: string; wordCount: number } | null>(null)
+    const [resumeMeta, setResumeMeta] = useState<{ name: string; sizeKb: number } | null>(
+        initialResumeName && initialResumeSize ? { name: initialResumeName, sizeKb: initialResumeSize } : null
+    )
+    const [jobDescMeta, setJobDescMeta] = useState<{ title: string; wordCount: number } | null>(
+        initialJobDesc ? { title: 'Job Description', wordCount: initialJobDesc.trim().split(/\s+/).filter(Boolean).length } : null
+    )
+
 
     async function handleResumeChange() {
         const input = document.createElement("input")
@@ -49,6 +64,7 @@ export default function Input({
             if (!file) return
             setResumeMeta({ name: file.name, sizeKb: Math.round(file.size / 1024) })
             setResumeName(file.name)
+            setResumeSize(Math.round(file.size / 1024))
             const text = await parsePdf(file)
             setResume(text) 
         }
@@ -72,12 +88,13 @@ export default function Input({
                 <ResumeInput2
                     resume={resumeMeta}
                     onResumeChange={handleResumeChange}
-                    onResumeRemove={() => { setResumeMeta(null); setResume('') }}
+                    onResumeRemove={() => { setResumeMeta(null); setResume(''); setResumeSize(0) }}
                 />
 
                 <JobDescInput2
                     jobDesc={jobDescMeta}
                     onJobDescSave={handleJobDescChange}
+                    initialText={initialJobDesc}
                 />
             </div>
 

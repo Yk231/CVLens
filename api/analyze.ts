@@ -20,7 +20,7 @@ module.exports = async function handler(req: any, res: any) {
                 role: 'system',
                 content: `Act a senior recruiter for the exact company in the given job description. 
                         Analyze the resume against the job description thoroughly. Don't be afraid to be harsh or realistic.
-                        Rewrite suggestions should be for FULL SECTIONS. Do not take singular bullet
+                        Rewrite suggestions should be for FULL SECTIONS. Do not take isolated bullet points. Take full overivew/experience sections and edit it there, using action words and keywords.
                         Note: the resume text may have extra spaces or formatting artifacts from PDF
                         Respond ONLY with valid JSON in exactly this format:
                         {
@@ -30,19 +30,16 @@ module.exports = async function handler(req: any, res: any) {
                             "strengths": array of strings,
                             "weaknesses": array of strings (red flags a hiring manager would spot in under 15 seconds),
                             "rewriteSuggestions":{
-                                "role": string
-                                "organization": string
-                                "location": string
                                 "before": array of strings
                                 "after": array of strings
-                            }[]
+                            }[],
                             "sectionScores":{
                                 "skills": number between 0-100
                                 "experience": number between 0-100
                                 "keywords": number between 0-100
-                            }
-                            "generalTip": string (one general resume tip)
-                            "targetRole": string
+                            },
+                            "generalTip": string (one general resume tip),
+                            "targetRole": string,
                             "targetCompany": string
                         }`
                         
