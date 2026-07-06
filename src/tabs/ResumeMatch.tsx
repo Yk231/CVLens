@@ -9,6 +9,7 @@ import Header from '../components/Header'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
 import { useAppContext } from '../context/AppContext'
 import SectionBreakdown from '../components/resume/SectionBreakdown'
+import { ChevronLeft } from 'lucide-react'
 
 
 export default function ResumeReview() {
@@ -17,6 +18,9 @@ export default function ResumeReview() {
   const [resume, setResume] = useState(bookmarkData?.inputs.resume ?? '')
   const [jobDesc, setJobDesc] = useState(bookmarkData?.inputs.jobDesc ?? '')
   const [resumeName, setResumeName] = useState(bookmarkData?.inputs?.resumeName ?? '')
+  const isBookmark = !!bookmarkData
+  const { setActiveTab } = useAppContext()
+
   
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -55,7 +59,18 @@ export default function ResumeReview() {
           subtitle="See how well your resume matches the job description and get Al-powered insights."
         />
 
-        <div className="justify-end">
+        <div className="justify-end flex flex-row gap-4">
+          {isBookmark && (
+              <div className="flex flex-row gap-2">
+                  <button
+                      onClick={() => setActiveTab('bookmarks')}
+                      className="flex items-center gap-2 text-base border px-5 py-3 rounded-lg transition-colors disabled:opacity-50
+                            text-indigo-600 font-semibold border-indigo-200 hover:bg-indigo-50"
+                  >
+                      <><ChevronLeft className="w-5 h-5" /> Back to Bookmarks</>
+                  </button>
+              </div>
+          )}
           {result && (
             <BookmarkButton
               type="resume_match"
@@ -75,13 +90,15 @@ export default function ResumeReview() {
 
 
       {/* Analyze Button */}
-      <AnalyzeButton
-          idleMessage = "Analyze Match"
-          loadingMessage = "Analyzing..."
-          loading = {loading}
+      {!isBookmark && (
+        <AnalyzeButton
+          idleMessage="Analyze Match"
+          loadingMessage="Analyzing..."
+          loading={loading}
           requiredFields={[resume, jobDesc]}
           onClick={handleAnalyze}
-      />
+        />
+      )}
 
       {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
