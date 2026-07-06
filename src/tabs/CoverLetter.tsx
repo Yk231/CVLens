@@ -89,6 +89,9 @@ export default function CoverLetterGenerator() {
             
             {/* Input */}
             <div className="grid grid-cols-[650px_1.5fr] gap-4">
+                
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+
                 <Input
                     setResume={setResume}
                     setResumeName={setResumeName}

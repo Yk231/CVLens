@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function BookmarkButton({ type, inputs, result, initialBookmarkId }: Props) {
-    const { setIsGuest, bookmarkId: contextBookmarkId, setBookmarkId: setContextBookmarkId } = useAppContext()
+    const { setIsGuest, setBookmarkId: setContextBookmarkId } = useAppContext()
     const [saved, setSaved] = useState(!!initialBookmarkId)
     const [bookmarkId, setBookmarkId] = useState<string | null>(initialBookmarkId ?? null)
     const [loading, setLoading] = useState(false)

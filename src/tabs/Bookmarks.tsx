@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { Trash2, Eye, MessagesSquare, Bookmark, FileText, FileChartLine, UserStar } from 'lucide-react'
+import { Trash2, Eye, MessagesSquare, FileText, FileChartLine, UserStar } from 'lucide-react'
 import Header from '../components/Header'
 import InputSpan from '../components/bookmarks/InputSpan'
 import { useAppContext } from '../context/AppContext'
 
-
-
-export interface Bookmark {
+export interface BookmarkItem {
     id: string
     type: 'resume_match' | 'linkedin' | 'interview' | 'cover_letter'
     inputs: Record<string, any>
@@ -16,37 +14,33 @@ export interface Bookmark {
 }
 
 export function useBookmarks() {
-    const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
+    const [bookmarks, setBookmarks] = useState<BookmarkItem[]>([])
     const [loading, setLoading] = useState(true)
     const [typeFilter, setTypeFilter] = useState<string>('all')
 
     useEffect(() => {
-        fetchBookmarks()
+        let cancelled = false
+        async function run() {
+            setLoading(true)
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user || cancelled) { setLoading(false); return }
+            
+            let query = supabase
+                .from('bookmarks')
+                .select('*')
+                .eq('user_id', user.id)
+                .order('created_at', { ascending: false })
+            
+            if (typeFilter !== 'all') query = query.eq('type', typeFilter)
+            
+            const { data, error } = await query
+            if (!cancelled && !error && data) setBookmarks(data)
+            if (!cancelled) setLoading(false)
+        }
+        run()
+        return () => { cancelled = true }
     }, [typeFilter])
 
-    async function fetchBookmarks() {
-        setLoading(true)
-
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user) {
-            setLoading(false)
-            return
-        }
-
-        let query = supabase
-            .from('bookmarks')
-            .select('*')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false })
-
-        if (typeFilter !== 'all') {
-            query = query.eq('type', typeFilter)
-        }
-
-        const { data, error } = await query
-        if (!error && data) setBookmarks(data)
-        setLoading(false)
-    }
 
     async function deleteBookmark(id: string) {
         await supabase.from('bookmarks').delete().eq('id', id)
@@ -71,13 +65,6 @@ const TYPE_ICONS: Record<string, React.ElementType> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-    resume_match: 'bg-blue-50 text-blue-800',
-    cover_letter: 'bg-green-50 text-green-800',
-    interview: 'bg-amber-50 text-amber-800',
-    linkedin: 'bg-purple-50 text-purple-800',
-}
-
-const INPUT_LABEL: Record<string, string> = {
     resume_match: 'bg-blue-50 text-blue-800',
     cover_letter: 'bg-green-50 text-green-800',
     interview: 'bg-amber-50 text-amber-800',

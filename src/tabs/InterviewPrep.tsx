@@ -167,7 +167,7 @@ export default function InterviewPrep() {
                                         <button
                                             onClick={() => setSelectedQuestion(i => i - 1)}
                                             className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-                                            disabled={selectedQuestion == 0}
+                                            disabled={selectedQuestion === 0}
                                         >
                                             <ArrowLeft className="w-3 h-3" /> Previous Question
                                         </button>
@@ -175,7 +175,7 @@ export default function InterviewPrep() {
                                         <button
                                             onClick={() => setSelectedQuestion(i => i + 1)}
                                             className="flex items-center gap-1 text-sm text-slate-500 hover:text-slate-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-                                            disabled={selectedQuestion == result.QnA.length -1}
+                                            disabled={selectedQuestion === result.QnA.length -1}
                                         >
                                             Next Question <ArrowRight className="w-3 h-3" />
                                         </button>
