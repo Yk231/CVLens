@@ -3,18 +3,17 @@ An AI-powered web app that helps job seekers at every stage of the application p
 
 **Live:** [cvlens-three.vercel.app](https://cvlens-three.vercel.app)
 
----
-
-## Screenshots
-<p align="center">
-  <img src="Screenshots/Bookmarks.png" width="49%">
-  <img src="Screenshots/ResumeMatch.png" width="49">
-  <img src="Screenshots/InterviewPrep.png" width="49">
-  <img src="Screenshots/LinkedIn.png" width="49">
-  <img src="Screenshots/CoverLetter.png" width="49">
+<p>
+  <img width="49%" alt="Bookmarks" src="Screenshots/Bookmarks.png" />
+  <img width="49%" alt="Cover Letter" src="Screenshots/CoverLetter.png" />
 </p>
-
----
+<p>
+  <img width="49%" alt="Interview Prep" src="Screenshots/InterviewPrep.png" />
+  <img width="49%" alt="LinkedIn" src="Screenshots/LinkedIn.png" />
+</p>
+<p>
+  <img width="49%" alt="Resume Match" src="Screenshots/ResumeMatch.png" />
+</p>
 
 ## Features
 
