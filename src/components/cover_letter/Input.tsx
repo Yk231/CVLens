@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { ResumeInput2 } from "../ResumeInput"
-import { JobDescInput2 } from "../JobDescInput"
+import { ResumeInput2 } from "../misc/ResumeInput"
+import { JobDescInput2 } from "../misc/JobDescInput"
 import { SelectionInput, TextInput } from "./InfoInput"
 import { parsePdf } from "../../lib/parsePdf"
 

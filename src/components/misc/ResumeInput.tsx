@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { FileInput, FileText, X } from 'lucide-react'
-import { parsePdf } from '../lib/parsePdf'
+import { parsePdf } from '../../lib/parsePdf'
 
 
 interface Props1 {

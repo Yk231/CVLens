@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { Trash2, Eye, MessagesSquare, FileText, FileChartLine, UserStar } from 'lucide-react'
-import Header from '../components/Header'
+import Header from '../components/misc/Header'
 import InputSpan from '../components/bookmarks/InputSpan'
 import { useAppContext } from '../context/AppContext'
 

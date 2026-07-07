@@ -2,8 +2,8 @@ import { useState } from 'react'
 import Input from '../components/cover_letter/Input'
 import OutputPreview from '../components/cover_letter/Preview'
 import Output from '../components/cover_letter/Output'
-import Header from '../components/Header'
-import AnalyzeButton from '../components/AnalyzeButton'
+import Header from '../components/misc/Header'
+import AnalyzeButton from '../components/misc/AnalyzeButton'
 import BookmarkButton from '../components/bookmarks/BookmarkButton'
 import { useAppContext } from '../context/AppContext'
 
@@ -89,7 +89,7 @@ export default function CoverLetterGenerator() {
             
             {/* Input */}
             <div className="grid grid-cols-[650px_1.5fr] gap-4">
-                
+
                 {error && <p className="text-red-500 text-sm">{error}</p>}
 
                 <Input
