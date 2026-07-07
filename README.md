@@ -110,11 +110,8 @@ CVLens/
 │   │   ├── cover_letter/   ← Input, Output, Editor, Preview
 │   │   ├── interview/      ← Interview prep components
 │   │   ├── linkedin/       ← LinkedIn review components
-│   │   ├── resume/         ← ScoreCard, StrengthsList, RewriteSuggestions, SectionBreakdown
-│   │   ├── AnalyzeButton.tsx
-│   │   ├── Header.tsx
-│   │   ├── JobDescInput.tsx
-│   │   └── ResumeInput.tsx
+│   │   ├── misc/           ← Misc components
+│   │   └── resume/         ← ScoreCard, StrengthsList, RewriteSuggestions, SectionBreakdown
 │   ├── context/
 │   │   └── AppContext.tsx   ← Global state (session, active tab, bookmark data)
 │   ├── lib/
